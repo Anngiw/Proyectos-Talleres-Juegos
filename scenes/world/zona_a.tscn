@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://c1b7reucg3phq"]
+
+[ext_resource type="Script" uid="uid://cwq1ku3ul7i23" path="res://sistema_sol.gd" id="1_ixmor"]
+[ext_resource type="Script" uid="uid://l6kd5q7iclap" path="res://ciclodia.gd" id="2_ixmor"]
+[ext_resource type="Script" uid="uid://dnlm4ooi4k5w7" path="res://fotometro.gd" id="3_4ns1u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qm611"]
+
+[sub_resource type="Sky" id="Sky_qc24j"]
+sky_material = SubResource("ProceduralSkyMaterial_qm611")
+
+[sub_resource type="Environment" id="Environment_xepy2"]
+background_mode = 1
+background_color = Color(0.043137256, 0.07450981, 0.16862746, 1)
+sky = SubResource("Sky_qc24j")
+ambient_light_source = 2
+ambient_light_color = Color(0.043137256, 0.07450981, 0.16862746, 1)
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_xepy2"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xepy2"]
+size = Vector3(20, 1, 20)
+
+[node name="zona_a" type="Node3D" unique_id=2133811586]
+
+[node name="Sol" type="DirectionalLight3D" parent="." unique_id=611123433]
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=226776302]
+environment = SubResource("Environment_xepy2")
+
+[node name="SistemaSol" type="Node" parent="." unique_id=2012317016 node_paths=PackedStringArray("sol", "entorno")]
+script = ExtResource("1_ixmor")
+sol = NodePath("../Sol")
+entorno = NodePath("../WorldEnvironment")
+
+[node name="CicloDia" type="Node" parent="SistemaSol" unique_id=734536587]
+script = ExtResource("2_ixmor")
+
+[node name="LuzPrueba" type="OmniLight3D" parent="." unique_id=1144724482]
+light_energy = 50.0
+omni_range = 20.0
+
+[node name="Fotometro" type="Node" parent="." unique_id=209339429 node_paths=PackedStringArray("sistema", "camara", "superficie")]
+process_mode = 4
+script = ExtResource("3_4ns1u")
+sistema = NodePath("../SistemaSol")
+camara = NodePath("../Camera3D")
+superficie = NodePath("../Piso/Mesh")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1418376141]
+transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 5, 6)
+
+[node name="Piso" type="StaticBody3D" parent="." unique_id=1407387211]
+
+[node name="Mesh" type="MeshInstance3D" parent="Piso" unique_id=586858352]
+mesh = SubResource("BoxMesh_xepy2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Piso" unique_id=280259691]
+shape = SubResource("BoxShape3D_xepy2")
