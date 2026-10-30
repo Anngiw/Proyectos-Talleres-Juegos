@@ -1,219 +1,157 @@
 extends CharacterBody3D
-## Personaje base del equipo: Rogue, el explorador (versión 3D).
-## Se mueve libremente por el suelo con W A S D (o flechas) y salta con Espacio.
-## NO EDITEN este archivo en su rama: usen los tres enchufes de abajo desde su propio script.
 
-# ============================================================================
-#  LOS TRES ENCHUFES  (otros scripts pueden cambiarlos; este archivo los usa)
-# ============================================================================
-## Multiplica la rapidez de las teclas. 1 = normal, 0.5 = mitad, 0 = quieto aunque se presionen teclas.
-var multiplicador: float = 1.0
-## Velocidad que se SUMA, en m/s (x y z; la y se ignora). Sirve para dash, retroceso o empujón.
-var empuje: Vector3 = Vector3.ZERO
-## Nombre de una animación de Rogue. Mientras no esté vacío, se hace esa animación en vez de idle/walk.
-## Rogue trae: Idle, Walk, Run, Roll, Punch, Dagger_Attack, Dagger_Attack2, Attacking_Idle,
-## PickUp, RecieveHit, RecieveHit_2 y Death. (Para repetir una acción, ponla en "" y luego otra vez.)
-var accion: String = ""
+@export var speed: float = 5.0
+@export var gravedad: float = 20.0
+@export var altura_salto: float = 1.5
+@onready var anim = $Modelo/Rogue/AnimationPlayer
 
-# ============================================================================
-#  NÚMEROS DEL JUEGO
-# ============================================================================
-@export var speed: float = 4.0          # m/s al caminar
-@export var gravedad: float = 9.8       # m/s²
-@export var fuerza_salto: float = 6.0   # m/s hacia arriba al saltar
-@export var velocidad_giro: float = 12.0  # qué tan rápido gira el modelo hacia donde camina
-
-## Estado actual: "idle", "walk", "jump" o "fall".
-var estado: String = "idle"
-
-## Rogue no trae animación de salto ni de caída: se usa Roll al subir y Idle al caer.
-## Si el equipo consigue otras, solo se cambia esta tabla.
-const ANIMACIONES := {"idle": "Idle", "walk": "Walk", "jump": "Roll", "fall": "Idle"}
-## Las animaciones que Rogue trae sin bucle y que deben repetirse mientras dure el estado.
-const ANIMACIONES_EN_BUCLE := ["Idle", "Walk", "Run", "Attacking_Idle"]
-
-@onready var modelo: Node3D = $Modelo
-@onready var animador: AnimationPlayer = $Modelo/Rogue/AnimationPlayer
-
-var _animacion_actual: String = ""
-var _animacion_invalida: String = ""
-
-# ============================================================================
-#  PRUEBA AUTOMÁTICA  (Inspector → Prueba; se toca F5 sin tocar el teclado)
-# ============================================================================
-@export_group("Prueba")
-@export_enum("Ninguna", "Avanzar 60 cuadros", "Avanzar 60 y soltar",
-		"Avanzar y la acción desde el cuadro 30", "Mantener la acción 2 s",
-		"Avanzar con la acción 60 cuadros", "Diagonal W+D 60 cuadros") var prueba: int = 0
-## Nombre de la acción del Input Map que usan las pruebas 3, 4 y 5 (por ejemplo: correr).
-@export var accion_prueba: String = ""
-@export_group("")
-
-const DURACION_PRUEBA := [0, 60, 90, 60, 120, 60, 60]
-var _cuadro: int = 0
-var _prueba_en_curso: bool = false
-var _teclas_pulsadas: Array[String] = []
-var _y_suelo: float = 0.0
-var _y_suelo_fijada: bool = false
-var _altura_maxima: float = 0.0
-var _registro_estados: Dictionary = {}
+# Enchufes: otros scripts (las acciones del juego) cambian estas tres variables.
+var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto
+var empuje = Vector3.ZERO   # velocidad extra en m/s (dash, retroceso)
+var accion = ""             # animación de la acción; "" = ninguna
 
 
-func _ready() -> void:
-	for nombre in ANIMACIONES_EN_BUCLE:
-		if animador.has_animation(nombre):
-			animador.get_animation(nombre).loop_mode = Animation.LOOP_LINEAR
-	_reproducir("Idle")
-	if prueba != 0:
-		_prueba_en_curso = true
-		print("=== PRUEBA: ", _nombre_de_la_prueba(), " ===")
-
-
-func _physics_process(delta: float) -> void:
-	if _prueba_en_curso:
-		_cuadro += 1
-		_aplicar_teclas_de_la_prueba()
-
-	# --- Movimiento horizontal (W A S D): libre en x y z --------------------
-	var entrada := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direccion := Vector3(entrada.x, 0.0, entrada.y)
-	velocity.x = direccion.x * speed * multiplicador + empuje.x
-	velocity.z = direccion.z * speed * multiplicador + empuje.z
-
+func _physics_process(delta):
 	# --- Gravedad y salto ----------------------------------------------------
 	if not is_on_floor():
 		velocity.y -= gravedad * delta
 	elif Input.is_action_just_pressed("saltar"):
-		velocity.y = fuerza_salto
+		velocity.y = sqrt(2 * gravedad * altura_salto)
 
-	move_and_slide()
+	# --- Movimiento en X y Z (Ejes horizontales) -----------------------------
+	var entrada = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direccion = Vector3(entrada.x, 0.0, entrada.y)
+	
+	velocity.x = direccion.x * speed * multiplicador + empuje.x
+	velocity.z = direccion.z * speed * multiplicador + empuje.z
 
-	# --- Hacia dónde mira ----------------------------------------------------
+	# --- Rotación suave hacia donde camina -----------------------------------
 	var se_mueve := direccion != Vector3.ZERO and multiplicador > 0.0
 	if se_mueve:
 		var objetivo := atan2(direccion.x, direccion.z)
-		modelo.rotation.y = lerp_angle(modelo.rotation.y, objetivo, clampf(velocidad_giro * delta, 0.0, 1.0))
+		rotation.y = objetivo
 
-	# --- Estado y animación --------------------------------------------------
-	var nuevo := "idle"
-	if not is_on_floor():
-		nuevo = "jump" if velocity.y > 0.0 else "fall"
+	# --- Control de Animaciones ----------------------------------------------
+	if accion != "":
+		anim.play(accion)
+	elif not is_on_floor():
+		anim.play("Roll" if velocity.y > 0 else "Idle")
 	elif se_mueve:
-		nuevo = "walk"
-	estado = nuevo
+		anim.play("Walk")
+	else:
+		anim.play("Idle")
 
-	var deseada: String = accion if accion != "" else ANIMACIONES[estado]
-	if not animador.has_animation(deseada):
-		if deseada != _animacion_invalida:
-			_animacion_invalida = deseada
-			push_warning("Rogue no tiene la animación '%s'." % deseada)
-		deseada = ANIMACIONES[estado]
-	_reproducir(deseada)
-
-	if _prueba_en_curso:
-		_registrar_cuadro()
+	move_and_slide()
+	_prueba()
 
 
-func _reproducir(nombre: String) -> void:
-	if nombre == _animacion_actual:
+# ---------------------------------------------------------------------------
+# PRUEBAS AUTOMÁTICAS. No hace falta entender esta parte: en el Inspector del
+# Personaje elijan "Prueba" (y, si la prueba usa una acción, escriban su nombre
+# en "Accion Prueba"). Con F5 el personaje se mueve solo y escribe los números
+# en el panel Output. La última línea de _physics_process() es _prueba().
+# ---------------------------------------------------------------------------
+@export_enum("Ninguna", "Avanzar 60 cuadros", "Avanzar 60 y soltar", "Avanzar y la acción desde el cuadro 30", "Mantener la acción 2 s", "Avanzar con la acción 60 cuadros", "Diagonal W+D 60 cuadros") var prueba = 0
+@export var accion_prueba = ""
+var _cuadro = 0
+var _termino = false
+var _y_max = 0.0
+var _cuadro_max = 0
+
+
+func _prueba():
+	if prueba == 0 or _termino:
 		return
-	_animacion_actual = nombre
-	animador.play(nombre, 0.15)
+	_cuadro += 1
+	var avanzar = "move_right"
+	var lado = "move_up"
+	if _cuadro == 1:
+		if prueba <= 3 or prueba == 5:
+			_apretar(avanzar)
+		if prueba == 4 or prueba == 5:
+			_apretar(accion_prueba)
+		if prueba == 6:
+			_apretar(avanzar)
+			_apretar(lado)
+		return
+	var n = _cuadro - 1
+	if prueba == 3 and n == 30:
+		_apretar(accion_prueba)
+	if prueba == 2 and n == 60:
+		Input.action_release(avanzar)
+	var marcas = []
+	if prueba == 1 or prueba == 5:
+		marcas = [1, 2, 3, 5, 10, 15, 20, 30, 60]
+	elif prueba == 2:
+		marcas = [59, 60, 61, 62, 63, 65, 70, 80, 90]
+	elif prueba == 3:
+		marcas = [29, 30, 31, 32, 33, 35, 40, 45, 50, 60, 75, 90]
+	elif prueba == 6:
+		marcas = [1, 30, 60]
+	else:
+		marcas = [1, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150]
+	if n in marcas:
+		print("[prueba] cuadro ", n, ": ", _resumen())
+	_cambios(n)
+	if global_position.y > _y_max + 0.0001:
+		_y_max = global_position.y
+		_cuadro_max = n
+	if n == marcas[-1]:
+		Input.action_release(avanzar)
+		Input.action_release(lado)
+		_soltar(accion_prueba)
+		_termino = true
+		if _y_max > 0.01:
+			print("[prueba] altura máxima ", snappedf(_y_max, 0.01), " en el cuadro ", _cuadro_max)
 
 
-# ============================================================================
-#  CÓDIGO DE LA PRUEBA
-# ============================================================================
-func _nombre_de_la_prueba() -> String:
-	var opciones: PackedStringArray = ["Ninguna", "Avanzar 60 cuadros", "Avanzar 60 y soltar",
-		"Avanzar y la acción desde el cuadro 30", "Mantener la acción 2 s",
-		"Avanzar con la acción 60 cuadros", "Diagonal W+D 60 cuadros"]
-	return opciones[prueba]
-
-
-func _teclas_de_la_prueba(c: int) -> Array[String]:
-	var t: Array[String] = []
-	match prueba:
-		1, 2:
-			if c <= 60: t.append("move_up")
-		3:
-			t.append("move_up")
-			if c >= 30: t.append(accion_prueba)
-		4:
-			t.append(accion_prueba)
-		5:
-			t.append("move_up")
-			t.append(accion_prueba)
-		6:
-			if c <= 60:
-				t.append("move_up")
-				t.append("move_right")
+func _resumen():
+	var t = "posición " + str(global_position.snappedf(0.01))
+	t += " · rapidez " + str(snappedf(absf(velocity.x), 0.01))
+	t += " · y " + str(snappedf(global_position.y, 0.01))
+	t += " · animación " + str(anim.current_animation)
+	for nodo in _con_estado():
+		t += " · " + str(nodo.name) + ".estado " + _nombre(nodo)
 	return t
 
 
-func _aplicar_teclas_de_la_prueba() -> void:
-	if _cuadro > DURACION_PRUEBA[prueba]:
-		_terminar_prueba()
-		return
-	var quiero := _teclas_de_la_prueba(_cuadro)
-	for t in _teclas_pulsadas.duplicate():
-		if not quiero.has(t):
-			Input.action_release(t)
-			_teclas_pulsadas.erase(t)
-	for t in quiero:
-		if t != "" and InputMap.has_action(t) and not _teclas_pulsadas.has(t):
-			Input.action_press(t)
-			_teclas_pulsadas.append(t)
-		elif t == "" or not InputMap.has_action(t):
-			push_warning("La prueba necesita una acción del Input Map en 'Accion Prueba' (ahora: '%s')." % t)
+# Escribe el cuadro exacto en el que cambia cualquier variable "estado".
+var _antes = {}
 
 
-func _terminar_prueba() -> void:
-	for t in _teclas_pulsadas:
-		Input.action_release(t)
-	_teclas_pulsadas.clear()
-	_prueba_en_curso = false
-	if _altura_maxima > 0.01:
-		print("Altura máxima del salto: %.2f m" % _altura_maxima)
-	print("=== FIN DE LA PRUEBA (dejen Prueba en Ninguna) ===")
+func _cambios(n):
+	for nodo in _con_estado():
+		var e = _nombre(nodo)
+		if _antes.has(nodo) and _antes[nodo] != e:
+			print("[prueba] cuadro ", n, ": ", nodo.name, ".estado cambia a ", e)
+		_antes[nodo] = e
 
 
-func _nodos_hijos_con_datos() -> Array[Node]:
-	var lista: Array[Node] = []
-	for n in find_children("*", "", true, false):
-		if "estado" in n or (n is AnimationPlayer and n != animador):
-			lista.append(n)
+func _con_estado():
+	var lista = []
+	for nodo in [self] + get_children() + get_tree().get_nodes_in_group("probar"):
+		if nodo.get_script() != null and "estado" in nodo:
+			lista.append(nodo)
 	return lista
 
 
-func _registrar_cuadro() -> void:
-	if not _y_suelo_fijada and is_on_floor():
-		_y_suelo = global_position.y
-		_y_suelo_fijada = true
-	var altura := global_position.y - _y_suelo
-	_altura_maxima = maxf(_altura_maxima, altura)
-	var p := global_position
-	var linea := "cuadro %3d | pos (%.2f, %.2f, %.2f) | rapidez suelo %.2f m/s | altura %.2f m | anim %s | estado %s" % [
-		_cuadro, p.x, p.y, p.z, Vector2(velocity.x, velocity.z).length(), altura,
-		animador.current_animation, estado]
-	for n in _nodos_hijos_con_datos():
-		var ruta := str(get_path_to(n))
-		if "estado" in n:
-			linea += " | %s estado %s" % [ruta, str(n.estado)]
-		if n is AnimationPlayer:
-			linea += " | %s anim %s" % [ruta, n.current_animation]
-	print(linea)
-
-	# Cada vez que un estado o una animación cambia, una línea con el cuadro exacto.
-	_avisar_cambio("Personaje", "estado", estado)
-	_avisar_cambio("Personaje", "animación", _animacion_actual)
-	for n in _nodos_hijos_con_datos():
-		if "estado" in n:
-			_avisar_cambio(str(get_path_to(n)), "estado", str(n.estado))
+func _nombre(nodo):
+	var nombres = nodo.get_script().get_script_constant_map().get("Estado", {})
+	for k in nombres:
+		if nombres[k] == nodo.estado:
+			return k
+	return str(nodo.estado)
 
 
-func _avisar_cambio(quien: String, que: String, valor: String) -> void:
-	var clave := quien + "/" + que
-	if _registro_estados.has(clave) and _registro_estados[clave] != valor:
-		print(">>> cuadro %d: %s — %s: %s → %s" % [_cuadro, quien, que, _registro_estados[clave], valor])
-	_registro_estados[clave] = valor
+func _apretar(a):
+	if a == "":
+		print("[prueba] escriban el nombre de la acción en 'Accion Prueba'")
+	elif not InputMap.has_action(a):
+		print("[prueba] falta la acción '", a, "' en el Input Map")
+	else:
+		Input.action_press(a)
+
+
+func _soltar(a):
+	if a != "" and InputMap.has_action(a):
+		Input.action_release(a)
