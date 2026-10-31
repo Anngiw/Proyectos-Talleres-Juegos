@@ -9,11 +9,6 @@ height = 1.8
 
 [node name="Personaje" type="CharacterBody3D" unique_id=1743000221]
 script = ExtResource("1_script")
-speed_caminar = 3.5
-speed_correr = 6.0
-tiempo_arranque = 0.18
-gravedad = 14.0
-altura_salto = 1.8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=758470372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

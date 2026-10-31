@@ -48,15 +48,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007047653, -0.49365455, -0
 mesh = SubResource("BoxMesh_dphjl")
 
 [node name="MainCamera" type="Camera3D" parent="." unique_id=1275940355 node_paths=PackedStringArray("objetivo")]
-transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 5, 10.579028)
+transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 5, 11.579028)
 script = ExtResource("3_camara")
 objetivo = NodePath("../Personaje")
 
 [node name="Personaje" parent="." unique_id=1837990298 node_paths=PackedStringArray("camara") instance=ExtResource("2_personaje")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5.385372)
 camara = NodePath("../MainCamera")
-prueba = 3
-accion_prueba = "saltar"
+prueba = 1
 
 [node name="Plataforma3" type="StaticBody3D" parent="." unique_id=485200372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5481188, 2.1627402)

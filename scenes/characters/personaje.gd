@@ -72,18 +72,24 @@ func elegir_estado():
 	return Estado.CAMINAR
 
 func animar():
+	var animacion_deseada = ""
+	
 	if accion != "":
-		anim.play(accion)
-		return
-	match estado:
-		Estado.QUIETO:
-			anim.play("Idle")
-		Estado.CAMINAR:
-			anim.play("Walk")
-		Estado.CORRER:
-			anim.play("Run")      
-		Estado.AIRE:
-			anim.play("Roll")
+		animacion_deseada = accion
+	else:
+		match estado:
+			Estado.QUIETO:
+				animacion_deseada = "Idle" # O el nombre exacto que tengas
+			Estado.CAMINAR:
+				animacion_deseada = "Walk" # O el nombre exacto que tengas
+			Estado.CORRER:
+				animacion_deseada = "Run"  # O el nombre exacto que tengas
+			Estado.AIRE:
+				animacion_deseada = "Roll" # O el nombre exacto que tengas
+				
+	# Solo reproducimos si la animación es diferente a la actual
+	if anim.current_animation != animacion_deseada:
+		anim.play(animacion_deseada)
 			
 	
 # ---------------------------------------------------------------------------

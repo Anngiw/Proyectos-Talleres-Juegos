@@ -1,18 +1,13 @@
 extends Camera3D
-## Cámara que sigue al Personaje manteniendo la distancia y el ángulo con los que se colocó en el editor.
-
 @export var objetivo: Node3D
-@export var suavizado: float = 6.0
+@export var distancia = Vector3(0, 4, 6)
 
-var _desfase: Vector3 = Vector3.ZERO
+func _ready():
+	top_level = true
+	# Se orienta UNA vez, mirando al objetivo en entorno 3D.
+	look_at_from_position(objetivo.global_position + distancia,
+	objetivo.global_position)
 
-
-func _ready() -> void:
-	if objetivo:
-		_desfase = global_position - objetivo.global_position
-
-
-func _process(delta: float) -> void:
-	if objetivo:
-		var destino := objetivo.global_position + _desfase
-		global_position = global_position.lerp(destino, 1.0 - exp(-suavizado * delta))
+func _physics_process(_delta):
+	# Sigue de forma fluida la posición global del personaje sumando la distancia ampliada
+	global_position = objetivo.global_position + distancia
