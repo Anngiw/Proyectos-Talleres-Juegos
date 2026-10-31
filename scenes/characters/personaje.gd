@@ -1,18 +1,24 @@
 extends CharacterBody3D
-
+#Nivel 3
+enum Estado { QUIETO, CAMINAR, CORRER, AIRE }
+const RUIDO = [0.0, 2.0, 6.0, 0.0]
+# ---
 @export var camara: Camera3D
-@export var speed_caminar: float = 2.5
-@export var speed_correr: float = 5.0
-@export var tiempo_arranque: float = 0.25 
-@export var gravedad: float = 20.0
-@export var altura_salto: float = 1.5
+@export var speed_caminar: float = 3.5
+@export var speed_correr: float = 6.0
+@export var tiempo_arranque: float = 0.18 
+@export var gravedad: float = 14.0
+@export var altura_salto: float = 1.8
 @onready var anim = $Modelo/Rogue/AnimationPlayer
+
 
 # Enchufes: otros scripts (las acciones del juego) cambian estas variables.
 var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto
 var empuje = Vector3.ZERO   # velocidad extra en m/s (dash, retroceso)
 var accion = ""             # animación de la acción; "" = ninguna
 var avance = Vector3.ZERO   # [NOTA ASIGNADA POR CAMBIO DE DISEÑO 2.5D A 3.0D] La parte de la velocidad que dan las teclas[cite: 11]
+var estado = Estado.QUIETO
+var ruido = 0.0
 
 
 func _physics_process(delta):
@@ -43,22 +49,43 @@ func _physics_process(delta):
 	if direction.length() > 0:
 		basis = Basis.looking_at(direction)
 
-	# --- Control de Animaciones ----------------------------------------------
+	# --- Esqueleto viejo borrado Control de Animaciones ----------------------------------------------
+	#_________________
+	
+	move_and_slide()
+	var antes = estado
+	estado = elegir_estado()
+	ruido = RUIDO[estado]              
+	if estado != antes:
+		print("estado ", Estado.keys()[estado], " · ruido ", ruido, " m")
+		animar()
+	_prueba()
+	
+func elegir_estado():
+	if not is_on_floor():
+		return Estado.AIRE        
+	var rapidez = Vector2(velocity.x, velocity.z).length()
+	if rapidez < 0.1:
+		return Estado.QUIETO
+	if rapidez > speed_caminar + 0.1: 
+		return Estado.CORRER
+	return Estado.CAMINAR
+
+func animar():
 	if accion != "":
 		anim.play(accion)
-	elif not is_on_floor():
-		anim.play("Roll" if velocity.y > 0 else "Idle")
-	elif avance.length() > speed_caminar + 0.1:
-		anim.play("Run") #Animación de correr / sprint
-	elif avance.length() > 0.1:
-		anim.play("Walk") #Animación de caminar
-	else:
-		anim.play("Idle") #Quieto
-
-	move_and_slide()
-	_prueba()
-
-
+		return
+	match estado:
+		Estado.QUIETO:
+			anim.play("Idle")
+		Estado.CAMINAR:
+			anim.play("Walk")
+		Estado.CORRER:
+			anim.play("Run")      
+		Estado.AIRE:
+			anim.play("Roll")
+			
+	
 # ---------------------------------------------------------------------------
 # PRUEBAS AUTOMÁTICAS. No hace falta entender esta parte: en el Inspector del
 # Personaje elijan "Prueba" (y, si la prueba usa una acción, escriban su nombre

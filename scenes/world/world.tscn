@@ -55,7 +55,7 @@ objetivo = NodePath("../Personaje")
 [node name="Personaje" parent="." unique_id=1837990298 node_paths=PackedStringArray("camara") instance=ExtResource("2_personaje")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5.385372)
 camara = NodePath("../MainCamera")
-prueba = 2
+prueba = 3
 accion_prueba = "saltar"
 
 [node name="Plataforma3" type="StaticBody3D" parent="." unique_id=485200372]
