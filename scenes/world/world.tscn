@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cngggo0ueu63d"]
 
-[ext_resource type="PackedScene" path="res://scenes/characters/personaje.tscn" id="2_personaje"]
+[ext_resource type="PackedScene" uid="uid://2f31l2kl22ts" path="res://scenes/characters/personaje.tscn" id="2_personaje"]
 [ext_resource type="Script" uid="uid://3aw1npvbpare" path="res://scenes/world/camara_seguimiento.gd" id="3_camara"]
 
 [sub_resource type="Environment" id="Environment_xepy2"]
@@ -28,11 +28,6 @@ size = Vector3(3, 3, 3)
 
 [node name="World" type="Node3D" unique_id=1399488168]
 
-[node name="MainCamera" type="Camera3D" parent="." unique_id=1275940355]
-transform = Transform3D(1, 0, 0, 0, 0.89415425, 0.44775906, 0, -0.44775906, 0.89415425, 0.29071808, 8.260658, 10)
-script = ExtResource("3_camara")
-objetivo = NodePath("../Personaje")
-
 [node name="Nodo de Luz" type="DirectionalLight3D" parent="." unique_id=1056099398]
 transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 13.815498, 0)
 light_color = Color(0.043137256, 0.07450981, 0.16862746, 1)
@@ -52,13 +47,19 @@ shape = SubResource("BoxShape3D_xepy2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007047653, -0.49365455, -0.01290226)
 mesh = SubResource("BoxMesh_dphjl")
 
-[node name="Personaje" parent="." unique_id=1837990298 instance=ExtResource("2_personaje")]
+[node name="MainCamera" type="Camera3D" parent="." unique_id=1275940355 node_paths=PackedStringArray("objetivo")]
+transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 5, 10.579028)
+script = ExtResource("3_camara")
+objetivo = NodePath("../Personaje")
+
+[node name="Personaje" parent="." unique_id=1837990298 node_paths=PackedStringArray("camara") instance=ExtResource("2_personaje")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5.385372)
-prueba = 4
+camara = NodePath("../MainCamera")
+prueba = 2
 accion_prueba = "saltar"
 
 [node name="Plataforma3" type="StaticBody3D" parent="." unique_id=485200372]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5481188, 4.752162)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5481188, 2.1627402)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plataforma3" unique_id=1562082648]
 shape = SubResource("BoxShape3D_8dto7")

@@ -1,14 +1,18 @@
 extends CharacterBody3D
 
-@export var speed: float = 5.0
+@export var camara: Camera3D
+@export var speed_caminar: float = 2.5
+@export var speed_correr: float = 5.0
+@export var tiempo_arranque: float = 0.25 
 @export var gravedad: float = 20.0
 @export var altura_salto: float = 1.5
 @onready var anim = $Modelo/Rogue/AnimationPlayer
 
-# Enchufes: otros scripts (las acciones del juego) cambian estas tres variables.
+# Enchufes: otros scripts (las acciones del juego) cambian estas variables.
 var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto
 var empuje = Vector3.ZERO   # velocidad extra en m/s (dash, retroceso)
 var accion = ""             # animación de la acción; "" = ninguna
+var avance = Vector3.ZERO   # [NOTA ASIGNADA POR CAMBIO DE DISEÑO 2.5D A 3.0D] La parte de la velocidad que dan las teclas[cite: 11]
 
 
 func _physics_process(delta):
@@ -18,28 +22,38 @@ func _physics_process(delta):
 	elif Input.is_action_just_pressed("saltar"):
 		velocity.y = sqrt(2 * gravedad * altura_salto)
 
-	# --- Movimiento en X y Z (Ejes horizontales) -----------------------------
+	# --- Movimiento en X y Z con Cámara, Correr, Arranque y Frenado --------
 	var entrada = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direccion = Vector3(entrada.x, 0.0, entrada.y)
 	
-	velocity.x = direccion.x * speed * multiplicador + empuje.x
-	velocity.z = direccion.z * speed * multiplicador + empuje.z
+	var giro_cam = camara.global_rotation.y if camara else 0.0
+	var direction = Vector3(entrada.x, 0.0, entrada.y).rotated(Vector3.UP, giro_cam).normalized()
+	
+	var corre = Input.is_action_pressed("correr")
+	var speed = speed_correr if corre else speed_caminar
+	
+	var objetivo = direction * speed * multiplicador
+	var paso = (speed / tiempo_arranque) * delta
+	
+	avance = avance.move_toward(objetivo, paso)
+	
+	velocity.x = avance.x + empuje.x
+	velocity.z = avance.z + empuje.z
 
-	# --- Rotación suave hacia donde camina -----------------------------------
-	var se_mueve := direccion != Vector3.ZERO and multiplicador > 0.0
-	if se_mueve:
-		var objetivo := atan2(direccion.x, direccion.z)
-		rotation.y = objetivo
+	# --- Rotación suave hacia donde camina según la cámara -------------------
+	if direction.length() > 0:
+		basis = Basis.looking_at(direction)
 
 	# --- Control de Animaciones ----------------------------------------------
 	if accion != "":
 		anim.play(accion)
 	elif not is_on_floor():
 		anim.play("Roll" if velocity.y > 0 else "Idle")
-	elif se_mueve:
-		anim.play("Walk")
+	elif avance.length() > speed_caminar + 0.1:
+		anim.play("Run") #Animación de correr / sprint
+	elif avance.length() > 0.1:
+		anim.play("Walk") #Animación de caminar
 	else:
-		anim.play("Idle")
+		anim.play("Idle") #Quieto
 
 	move_and_slide()
 	_prueba()
@@ -107,7 +121,7 @@ func _prueba():
 
 func _resumen():
 	var t = "posición " + str(global_position.snappedf(0.01))
-	t += " · rapidez " + str(snappedf(absf(velocity.x), 0.01))
+	t += " · rapidez " + str(snappedf(avance.length(), 0.01))
 	t += " · y " + str(snappedf(global_position.y, 0.01))
 	t += " · animación " + str(anim.current_animation)
 	for nodo in _con_estado():
