@@ -20,6 +20,12 @@ albedo_color = Color(0.9372549, 0.8352941, 0.19607843, 1)
 material = SubResource("StandardMaterial3D_4rhad")
 size = Vector3(60, 1, 60)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dto7"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qc24j"]
+size = Vector3(3, 3, 3)
+
 [node name="World" type="Node3D" unique_id=1399488168]
 
 [node name="MainCamera" type="Camera3D" parent="." unique_id=1275940355]
@@ -43,7 +49,28 @@ environment = SubResource("Environment_xepy2")
 shape = SubResource("BoxShape3D_xepy2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=743113685]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007047653, -0.49365455, -0.01290226)
 mesh = SubResource("BoxMesh_dphjl")
 
 [node name="Personaje" parent="." unique_id=1837990298 instance=ExtResource("2_personaje")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5.385372)
+prueba = 4
+accion_prueba = "saltar"
+
+[node name="Plataforma3" type="StaticBody3D" parent="." unique_id=485200372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5481188, 4.752162)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataforma3" unique_id=1562082648]
+shape = SubResource("BoxShape3D_8dto7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataforma3" unique_id=337233874]
+mesh = SubResource("BoxMesh_qc24j")
+
+[node name="Plataforma4" type="StaticBody3D" parent="." unique_id=774648528]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataforma4" unique_id=171127200]
+shape = SubResource("BoxShape3D_8dto7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataforma4" unique_id=1315180115]
+mesh = SubResource("BoxMesh_qc24j")
