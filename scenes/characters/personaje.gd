@@ -1,14 +1,24 @@
 extends CharacterBody3D
-
-@export var speed: float = 5.0
-@export var gravedad: float = 20.0
-@export var altura_salto: float = 1.5
+#Nivel 3
+enum Estado { QUIETO, CAMINAR, CORRER, AIRE }
+const RUIDO = [0.0, 2.0, 6.0, 0.0]
+# ---
+@export var camara: Camera3D
+@export var speed_caminar: float = 3.5
+@export var speed_correr: float = 6.0
+@export var tiempo_arranque: float = 0.18 
+@export var gravedad: float = 14.0
+@export var altura_salto: float = 1.8
 @onready var anim = $Modelo/Rogue/AnimationPlayer
 
-# Enchufes: otros scripts (las acciones del juego) cambian estas tres variables.
+
+# Enchufes: otros scripts (las acciones del juego) cambian estas variables.
 var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto
 var empuje = Vector3.ZERO   # velocidad extra en m/s (dash, retroceso)
 var accion = ""             # animación de la acción; "" = ninguna
+var avance = Vector3.ZERO   # [NOTA ASIGNADA POR CAMBIO DE DISEÑO 2.5D A 3.0D] La parte de la velocidad que dan las teclas[cite: 11]
+var estado = Estado.QUIETO
+var ruido = 0.0
 
 
 func _physics_process(delta):
@@ -18,33 +28,70 @@ func _physics_process(delta):
 	elif Input.is_action_just_pressed("saltar"):
 		velocity.y = sqrt(2 * gravedad * altura_salto)
 
-	# --- Movimiento en X y Z (Ejes horizontales) -----------------------------
+	# --- Movimiento en X y Z con Cámara, Correr, Arranque y Frenado --------
 	var entrada = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direccion = Vector3(entrada.x, 0.0, entrada.y)
 	
-	velocity.x = direccion.x * speed * multiplicador + empuje.x
-	velocity.z = direccion.z * speed * multiplicador + empuje.z
+	var giro_cam = camara.global_rotation.y if camara else 0.0
+	var direction = Vector3(entrada.x, 0.0, entrada.y).rotated(Vector3.UP, giro_cam).normalized()
+	
+	var corre = Input.is_action_pressed("correr")
+	var speed = speed_correr if corre else speed_caminar
+	
+	var objetivo = direction * speed * multiplicador
+	var paso = (speed / tiempo_arranque) * delta
+	
+	avance = avance.move_toward(objetivo, paso)
+	
+	velocity.x = avance.x + empuje.x
+	velocity.z = avance.z + empuje.z
 
-	# --- Rotación suave hacia donde camina -----------------------------------
-	var se_mueve := direccion != Vector3.ZERO and multiplicador > 0.0
-	if se_mueve:
-		var objetivo := atan2(direccion.x, direccion.z)
-		rotation.y = objetivo
+	# --- Rotación suave hacia donde camina según la cámara -------------------
+	if direction.length() > 0:
+		basis = Basis.looking_at(direction)
 
-	# --- Control de Animaciones ----------------------------------------------
-	if accion != "":
-		anim.play(accion)
-	elif not is_on_floor():
-		anim.play("Roll" if velocity.y > 0 else "Idle")
-	elif se_mueve:
-		anim.play("Walk")
-	else:
-		anim.play("Idle")
-
+	# --- Esqueleto viejo borrado Control de Animaciones ----------------------------------------------
+	#_________________
+	
 	move_and_slide()
+	var antes = estado
+	estado = elegir_estado()
+	ruido = RUIDO[estado]              
+	if estado != antes:
+		print("estado ", Estado.keys()[estado], " · ruido ", ruido, " m")
+		animar()
 	_prueba()
+	
+func elegir_estado():
+	if not is_on_floor():
+		return Estado.AIRE        
+	var rapidez = Vector2(velocity.x, velocity.z).length()
+	if rapidez < 0.1:
+		return Estado.QUIETO
+	if rapidez > speed_caminar + 0.1: 
+		return Estado.CORRER
+	return Estado.CAMINAR
 
-
+func animar():
+	var animacion_deseada = ""
+	
+	if accion != "":
+		animacion_deseada = accion
+	else:
+		match estado:
+			Estado.QUIETO:
+				animacion_deseada = "Idle" # O el nombre exacto que tengas
+			Estado.CAMINAR:
+				animacion_deseada = "Walk" # O el nombre exacto que tengas
+			Estado.CORRER:
+				animacion_deseada = "Run"  # O el nombre exacto que tengas
+			Estado.AIRE:
+				animacion_deseada = "Roll" # O el nombre exacto que tengas
+				
+	# Solo reproducimos si la animación es diferente a la actual
+	if anim.current_animation != animacion_deseada:
+		anim.play(animacion_deseada)
+			
+	
 # ---------------------------------------------------------------------------
 # PRUEBAS AUTOMÁTICAS. No hace falta entender esta parte: en el Inspector del
 # Personaje elijan "Prueba" (y, si la prueba usa una acción, escriban su nombre
@@ -107,7 +154,7 @@ func _prueba():
 
 func _resumen():
 	var t = "posición " + str(global_position.snappedf(0.01))
-	t += " · rapidez " + str(snappedf(absf(velocity.x), 0.01))
+	t += " · rapidez " + str(snappedf(avance.length(), 0.01))
 	t += " · y " + str(snappedf(global_position.y, 0.01))
 	t += " · animación " + str(anim.current_animation)
 	for nodo in _con_estado():
