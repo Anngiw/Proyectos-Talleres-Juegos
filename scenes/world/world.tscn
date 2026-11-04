@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cngggo0ueu63d"]
 
 [ext_resource type="PackedScene" uid="uid://2f31l2kl22ts" path="res://scenes/characters/personaje.tscn" id="2_personaje"]
+[ext_resource type="PackedScene" uid="uid://cj11flcvrhjmk" path="res://scenes/characters/Cazador.tscn" id="3_1fp7r"]
 [ext_resource type="Script" uid="uid://3aw1npvbpare" path="res://scenes/world/camara_seguimiento.gd" id="3_camara"]
 
 [sub_resource type="Environment" id="Environment_xepy2"]
@@ -74,3 +75,6 @@ shape = SubResource("BoxShape3D_8dto7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataforma4" unique_id=1315180115]
 mesh = SubResource("BoxMesh_qc24j")
+
+[node name="Cazador" parent="." unique_id=1818351822 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
