@@ -54,9 +54,8 @@ script = ExtResource("3_camara")
 objetivo = NodePath("../Personaje")
 
 [node name="Personaje" parent="." unique_id=1837990298 node_paths=PackedStringArray("camara") instance=ExtResource("2_personaje")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5.385372)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 camara = NodePath("../MainCamera")
-prueba = 1
 
 [node name="Plataforma3" type="StaticBody3D" parent="." unique_id=485200372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5481188, 2.1627402)
@@ -78,3 +77,4 @@ mesh = SubResource("BoxMesh_qc24j")
 
 [node name="Cazador" parent="." unique_id=1818351822 instance=ExtResource("3_1fp7r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+rango_vision = 6.0
