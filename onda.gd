@@ -15,3 +15,6 @@ static func pendiente(x: float, t: float, amplitud: float, longitud: float, peri
 
 static func normal(dh: float) -> Vector3:
 	return Vector3(-dh, 1.0, 0.0).normalized()
+
+static func mezcla_altura(h: float, altura_maxima: float) -> float:
+	return clampf(h / altura_maxima, 0.0, 1.0)
