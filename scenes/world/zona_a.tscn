@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cwq1ku3ul7i23" path="res://sistema_sol.gd" id="1_ixmor"]
 [ext_resource type="Script" uid="uid://l6kd5q7iclap" path="res://ciclodia.gd" id="2_ixmor"]
 [ext_resource type="Script" uid="uid://dnlm4ooi4k5w7" path="res://fotometro.gd" id="3_4ns1u"]
+[ext_resource type="Shader" uid="uid://duw0igrdhhh4a" path="res://material_mundo.gdshader" id="4_4ns1u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qm611"]
 
@@ -22,6 +23,18 @@ size = Vector3(20, 1, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xepy2"]
 size = Vector3(20, 1, 20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qc24j"]
+render_priority = 0
+shader = ExtResource("4_4ns1u")
+shader_parameter/color_bajo = Color(0.05, 0.25, 0.5, 1)
+shader_parameter/amplitud = 0.1
+shader_parameter/longitud = 2.5
+shader_parameter/periodo = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_xepy2"]
+size = Vector2(5, 3)
+subdivide_width = 28
 
 [node name="zona_a" type="Node3D" unique_id=2133811586]
 
@@ -60,3 +73,7 @@ mesh = SubResource("BoxMesh_xepy2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Piso" unique_id=280259691]
 shape = SubResource("BoxShape3D_xepy2")
+
+[node name="Lava" type="MeshInstance3D" parent="." unique_id=1780972608]
+material_override = SubResource("ShaderMaterial_qc24j")
+mesh = SubResource("QuadMesh_xepy2")
