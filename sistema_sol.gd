@@ -11,6 +11,10 @@ extends Node
 @onready var ciclo: CicloDia = $CicloDia
 
 func _ready() -> void:
+	#Print Taller 5 : nivel 1 prueba shader se puede borrar mas adelante - programacion grafica
+	print(Onda.k(4.0), " ", Onda.w(2.0), " ", Onda.altura(1.0, 0.0, 0.3, 4.0, 2.0), " ", Onda.altura(1.0, 0.5, 0.3, 4.0, 2.0))
+	#Print Taller 5 : nivel 2 prueba paso4 se puede borrar mas adelante - programacion grafica
+	print(Onda.pendiente(0.0, 0.0, 0.3, 4.0, 2.0), " ", Onda.normal(0.4712))
 	aplicar_hora()
 
 func _process(delta: float) -> void:

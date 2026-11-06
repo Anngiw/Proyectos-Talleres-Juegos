@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cwq1ku3ul7i23" path="res://sistema_sol.gd" id="1_ixmor"]
 [ext_resource type="Script" uid="uid://l6kd5q7iclap" path="res://ciclodia.gd" id="2_ixmor"]
 [ext_resource type="Script" uid="uid://dnlm4ooi4k5w7" path="res://fotometro.gd" id="3_4ns1u"]
+[ext_resource type="Shader" uid="uid://duw0igrdhhh4a" path="res://material_mundo.gdshader" id="4_4ns1u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qm611"]
 
@@ -23,6 +24,23 @@ size = Vector3(20, 1, 20)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xepy2"]
 size = Vector3(20, 1, 20)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qc24j"]
+render_priority = 0
+shader = ExtResource("4_4ns1u")
+shader_parameter/color_bajo = Color(0.050980393, 0.2509804, 0.5019608, 1)
+shader_parameter/amplitud = 0.1
+shader_parameter/longitud = 2.5
+shader_parameter/periodo = 2.0
+shader_parameter/color_alto = Color(0.6, 0.8509804, 0.9607843, 1)
+shader_parameter/amplitud2 = 0.1
+shader_parameter/longitud2 = 1.5
+shader_parameter/periodo2 = 1.1
+shader_parameter/tiempo = 4.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_xepy2"]
+size = Vector2(5, 3)
+subdivide_width = 28
+
 [node name="zona_a" type="Node3D" unique_id=2133811586]
 
 [node name="Sol" type="DirectionalLight3D" parent="." unique_id=611123433]
@@ -40,7 +58,8 @@ entorno = NodePath("../WorldEnvironment")
 script = ExtResource("2_ixmor")
 
 [node name="LuzPrueba" type="OmniLight3D" parent="." unique_id=1144724482]
-light_energy = 50.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_energy = 2.0
 omni_range = 20.0
 
 [node name="Fotometro" type="Node" parent="." unique_id=209339429 node_paths=PackedStringArray("sistema", "camara", "superficie")]
@@ -51,12 +70,17 @@ camara = NodePath("../Camera3D")
 superficie = NodePath("../Piso/Mesh")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1418376141]
-transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 5, 6)
+transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 5, 3.5849805)
 
 [node name="Piso" type="StaticBody3D" parent="." unique_id=1407387211]
 
 [node name="Mesh" type="MeshInstance3D" parent="Piso" unique_id=586858352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.074727535, 0.4184544, -0.21966648)
 mesh = SubResource("BoxMesh_xepy2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Piso" unique_id=280259691]
 shape = SubResource("BoxShape3D_xepy2")
+
+[node name="Lava" type="MeshInstance3D" parent="." unique_id=1780972608]
+material_override = SubResource("ShaderMaterial_qc24j")
+mesh = SubResource("QuadMesh_xepy2")
