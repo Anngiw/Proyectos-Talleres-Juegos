@@ -53,7 +53,8 @@ entorno = NodePath("../WorldEnvironment")
 script = ExtResource("2_ixmor")
 
 [node name="LuzPrueba" type="OmniLight3D" parent="." unique_id=1144724482]
-light_energy = 50.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_energy = 2.0
 omni_range = 20.0
 
 [node name="Fotometro" type="Node" parent="." unique_id=209339429 node_paths=PackedStringArray("sistema", "camara", "superficie")]
@@ -64,11 +65,12 @@ camara = NodePath("../Camera3D")
 superficie = NodePath("../Piso/Mesh")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1418376141]
-transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 5, 6)
+transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 5, 3.5849805)
 
 [node name="Piso" type="StaticBody3D" parent="." unique_id=1407387211]
 
 [node name="Mesh" type="MeshInstance3D" parent="Piso" unique_id=586858352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.074727535, 0.4184544, -0.21966648)
 mesh = SubResource("BoxMesh_xepy2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Piso" unique_id=280259691]
