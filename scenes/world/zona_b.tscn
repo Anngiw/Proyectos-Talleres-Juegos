@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c43yjsdyc35sq" path="res://elixir.gd" id="3_pj58s"]
 [ext_resource type="Script" uid="uid://c1hk07r3eyht" path="res://interactuar_reliquias.gd" id="3_troo8"]
 [ext_resource type="Shader" uid="uid://wihv2jb8i40r" path="res://efecto_objeto.gdshader" id="4_fbkxc"]
+[ext_resource type="Script" uid="uid://dhs56rhqligfe" path="res://salud.gd" id="4_pj58s"]
 [ext_resource type="Script" uid="uid://bb2iqnyfurf2j" path="res://control_efectos.gd" id="5_7io2f"]
 [ext_resource type="PackedScene" path="res://scenes/characters/cazador_toque.tscn" id="9_6gqm6"]
 
@@ -60,6 +61,9 @@ script = ExtResource("3_pj58s")
 
 [node name="Interactuar" type="Node" parent="Personaje" unique_id=205862142]
 script = ExtResource("3_troo8")
+
+[node name="Salud" type="Node" parent="Personaje" unique_id=509635285]
+script = ExtResource("4_pj58s")
 
 [node name="LuzCazador" type="OmniLight3D" parent="." unique_id=1834947835]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
