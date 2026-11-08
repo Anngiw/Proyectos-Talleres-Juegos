@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c1hk07r3eyht" path="res://interactuar_reliquias.gd" id="3_troo8"]
 [ext_resource type="Shader" uid="uid://wihv2jb8i40r" path="res://efecto_objeto.gdshader" id="4_fbkxc"]
 [ext_resource type="Script" uid="uid://bb2iqnyfurf2j" path="res://control_efectos.gd" id="5_7io2f"]
+[ext_resource type="PackedScene" path="res://scenes/characters/cazador_toque.tscn" id="9_6gqm6"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6odci"]
 size = Vector2(10, 10)
@@ -50,7 +51,7 @@ size = Vector3(10, 0.2, 10)
 
 [node name="ZonaB" type="Node3D" unique_id=932317435]
 
-[node name="Personaje" parent="." unique_id=1743000221 instance=ExtResource("2_6gqm6")]
+[node name="Personaje" parent="." unique_id=1743000221 groups=["jugador"] instance=ExtResource("2_6gqm6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2)
 accion_prueba = "interactuar"
 
@@ -117,3 +118,6 @@ puntos = 250
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 visible = false
 shape = SubResource("BoxShape3D_kenls")
+
+[node name="Cazador2" parent="." unique_id=1302923105 instance=ExtResource("9_6gqm6")]
+transform = Transform3D(1, 0, 0, 0, 0.9999756, 0.00698126, 0, -0.00698126, 0.9999756, -4, 0.5, 2)
