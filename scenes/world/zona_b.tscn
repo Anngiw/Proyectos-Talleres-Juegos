@@ -3,11 +3,22 @@
 [ext_resource type="Script" uid="uid://rx4v56cm0ui4" path="res://luz_parpadeante.gd" id="1_s3ock"]
 [ext_resource type="Script" uid="uid://c3kcna15606eu" path="res://disparador.gd" id="2_mbsk8"]
 [ext_resource type="Script" uid="uid://djqh8lmej5bwe" path="res://sistema_eventos.gd" id="3_nnw43"]
+[ext_resource type="Shader" uid="uid://wihv2jb8i40r" path="res://efecto_objeto.gdshader" id="4_fbkxc"]
+[ext_resource type="Script" uid="uid://bb2iqnyfurf2j" path="res://control_efectos.gd" id="5_7io2f"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6odci"]
 size = Vector2(10, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6odci"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kenls"]
+render_priority = 0
+shader = ExtResource("4_fbkxc")
+shader_parameter/color_base = Color(0, 0.96, 0.83, 1)
+shader_parameter/color_flash = Color(1, 0.72, 0.01, 1)
+shader_parameter/flash = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_6odci"]
 
 [node name="ZonaB" type="Node3D" unique_id=932317435]
 
@@ -45,3 +56,10 @@ luz_variable = NodePath("../LuzCercania")
 [node name="LuzCercania" type="OmniLight3D" parent="." unique_id=1194845711]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
 omni_attenuation = 2.0
+
+[node name="Reliquia" type="MeshInstance3D" parent="." unique_id=2097182427 node_paths=PackedStringArray("objetivo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 0)
+material_override = SubResource("ShaderMaterial_kenls")
+mesh = SubResource("BoxMesh_6odci")
+script = ExtResource("5_7io2f")
+objetivo = NodePath(".")
