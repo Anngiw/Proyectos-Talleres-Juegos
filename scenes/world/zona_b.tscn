@@ -52,7 +52,7 @@ size = Vector3(10, 0.2, 10)
 
 [node name="Personaje" parent="." unique_id=1743000221 instance=ExtResource("2_6gqm6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2)
-accion_prueba = "elixir"
+accion_prueba = "interactuar"
 
 [node name="Elixir" type="Node" parent="Personaje" unique_id=840429101]
 script = ExtResource("3_pj58s")
