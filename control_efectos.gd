@@ -6,6 +6,7 @@ extends Node
 @export var radio := 3.0
 @export var dura_flash := 0.4
 @export var dura_dissolve := 1.0
+@export var puntos := 100
 
 var mat: ShaderMaterial
 var flash := 0.0
@@ -46,6 +47,10 @@ func golpe() -> void:
 
 func disolver() -> void:
 	disolviendo = true
+
+func usar() -> void:
+	objetivo.remove_from_group("interactivos")
+	disolver()
 
 static func mezclar(base: Color, color_flash: Color, t: float) -> Color:
 	return base + (color_flash - base) * t
