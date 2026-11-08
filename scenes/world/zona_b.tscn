@@ -11,14 +11,36 @@ size = Vector2(10, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6odci"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6lctj"]
+seed = 7
+frequency = 0.03
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7io2f"]
+noise = SubResource("FastNoiseLite_6lctj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7io2f"]
+render_priority = 0
+shader = ExtResource("4_fbkxc")
+shader_parameter/color_base = Color(0, 0.96, 0.83, 1)
+shader_parameter/color_flash = Color(1, 0.72, 0.01, 1)
+shader_parameter/flash = 0.0
+shader_parameter/ruido = SubResource("NoiseTexture2D_7io2f")
+shader_parameter/avance = 0.0
+shader_parameter/ancho_borde = 0.06
+shader_parameter/color_borde = Color(1, 0.6, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6odci"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kenls"]
 render_priority = 0
 shader = ExtResource("4_fbkxc")
 shader_parameter/color_base = Color(0, 0.96, 0.83, 1)
 shader_parameter/color_flash = Color(1, 0.72, 0.01, 1)
 shader_parameter/flash = 0.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_6odci"]
+shader_parameter/ruido = SubResource("NoiseTexture2D_7io2f")
+shader_parameter/avance = 0.0
+shader_parameter/ancho_borde = 0.06
+shader_parameter/color_borde = Color(1, 0.6, 0.1, 1)
 
 [node name="ZonaB" type="Node3D" unique_id=932317435]
 
@@ -59,7 +81,7 @@ omni_attenuation = 2.0
 
 [node name="Reliquia" type="MeshInstance3D" parent="." unique_id=2097182427 node_paths=PackedStringArray("objetivo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 0)
-material_override = SubResource("ShaderMaterial_kenls")
+material_override = SubResource("ShaderMaterial_7io2f")
 mesh = SubResource("BoxMesh_6odci")
 script = ExtResource("5_7io2f")
 objetivo = NodePath(".")
@@ -67,7 +89,6 @@ objetivo = NodePath(".")
 [node name="ReliquiaDorada" type="MeshInstance3D" parent="." unique_id=1013135062 node_paths=PackedStringArray("objetivo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 0)
 material_override = SubResource("ShaderMaterial_kenls")
-mesh = SubResource("BoxMesh_6odci")
 script = ExtResource("5_7io2f")
 objetivo = NodePath(".")
 tecla = 71
