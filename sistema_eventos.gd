@@ -4,6 +4,12 @@ extends Node
 @export var luz_evento: OmniLight3D
 @export var pico_destello := 4.0
 @export var k_destello := 6.0
+@export var luz_variable: Light3D
+@export var color_bajo := Color(0.5, 0.8, 1.0)
+@export var color_alto := Color(1.0, 0.2, 0.2)
+@export var k_variable := 4.0
+
+var variable := 0.0
 
 func _ready() -> void:
 	for d in get_tree().get_nodes_in_group("disparadores"):
@@ -14,6 +20,15 @@ func _process(delta: float) -> void:
 	luz_evento.light_energy = decaer(luz_evento.light_energy, 0.0, k_destello, delta)
 	if luz_evento.light_energy > 0.001:
 		print(snappedf(luz_evento.light_energy, 0.001))
+	if Input.is_key_pressed(KEY_UP):
+		variable = minf(1.0, variable + delta * 0.5)
+	if Input.is_key_pressed(KEY_DOWN):
+		variable = maxf(0.0, variable - delta * 0.5)
+	if luz_variable != null:
+		luz_variable.light_color = color_bajo.lerp(color_alto, clampf(variable, 0.0, 1.0))
+		var deseada := 1.0 + 3.0 * variable
+		luz_variable.light_energy = decaer(luz_variable.light_energy, deseada, k_variable, delta)
+		print("variable ", snappedf(luz_variable.light_energy, 0.001))
 
 func _on_evento(posicion: Vector3) -> void:
 	luz_evento.global_position = posicion + Vector3.UP * 1.5

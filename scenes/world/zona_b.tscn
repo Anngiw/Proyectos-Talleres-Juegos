@@ -37,6 +37,11 @@ light_energy = 0.0
 omni_range = 4.0
 omni_attenuation = 2.0
 
-[node name="SistemaEventos" type="Node" parent="." unique_id=851854208 node_paths=PackedStringArray("luz_evento")]
+[node name="SistemaEventos" type="Node" parent="." unique_id=851854208 node_paths=PackedStringArray("luz_evento", "luz_variable")]
 script = ExtResource("3_nnw43")
 luz_evento = NodePath("../LuzEvento")
+luz_variable = NodePath("../LuzCercania")
+
+[node name="LuzCercania" type="OmniLight3D" parent="." unique_id=1194845711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
+omni_attenuation = 2.0
