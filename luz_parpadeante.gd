@@ -17,7 +17,5 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	t += delta
 	light_energy = energia(energia_base, amplitud, ruido.get_noise_1d(t * velocidad))
-	print(snappedf(light_energy, 0.01))
-
 static func energia(base: float, amp: float, valor_ruido: float) -> float:
 	return maxf(0.0, base * (1.0 + amp * valor_ruido))
