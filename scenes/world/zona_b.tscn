@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://dcfe32c7dmdhv"]
+
+[ext_resource type="Script" uid="uid://rx4v56cm0ui4" path="res://luz_parpadeante.gd" id="1_s3ock"]
+[ext_resource type="PackedScene" uid="uid://2f31l2kl22ts" path="res://scenes/characters/personaje.tscn" id="2_6gqm6"]
+[ext_resource type="Script" uid="uid://c3kcna15606eu" path="res://disparador.gd" id="2_mbsk8"]
+[ext_resource type="Script" uid="uid://djqh8lmej5bwe" path="res://sistema_eventos.gd" id="3_nnw43"]
+[ext_resource type="Script" uid="uid://c43yjsdyc35sq" path="res://elixir.gd" id="3_pj58s"]
+[ext_resource type="Script" uid="uid://c1hk07r3eyht" path="res://interactuar_reliquias.gd" id="3_troo8"]
+[ext_resource type="Shader" uid="uid://wihv2jb8i40r" path="res://efecto_objeto.gdshader" id="4_fbkxc"]
+[ext_resource type="Script" uid="uid://dhs56rhqligfe" path="res://salud.gd" id="4_pj58s"]
+[ext_resource type="Script" uid="uid://bb2iqnyfurf2j" path="res://control_efectos.gd" id="5_7io2f"]
+[ext_resource type="PackedScene" path="res://scenes/characters/cazador_toque.tscn" id="9_6gqm6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6odci"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6odci"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6lctj"]
+seed = 7
+frequency = 0.03
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7io2f"]
+noise = SubResource("FastNoiseLite_6lctj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7io2f"]
+render_priority = 0
+shader = ExtResource("4_fbkxc")
+shader_parameter/color_base = Color(0, 0.96, 0.83, 1)
+shader_parameter/color_flash = Color(1, 0.72, 0.01, 1)
+shader_parameter/flash = 0.0
+shader_parameter/ruido = SubResource("NoiseTexture2D_7io2f")
+shader_parameter/avance = 0.0
+shader_parameter/ancho_borde = 0.06
+shader_parameter/color_borde = Color(1, 0.6, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6odci"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kenls"]
+render_priority = 0
+shader = ExtResource("4_fbkxc")
+shader_parameter/color_base = Color(0, 0.96, 0.83, 1)
+shader_parameter/color_flash = Color(1, 0.72, 0.01, 1)
+shader_parameter/flash = 0.0
+shader_parameter/ruido = SubResource("NoiseTexture2D_7io2f")
+shader_parameter/avance = 0.0
+shader_parameter/ancho_borde = 0.06
+shader_parameter/color_borde = Color(1, 0.6, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kenls"]
+size = Vector3(10, 0.2, 10)
+
+[node name="ZonaB" type="Node3D" unique_id=932317435]
+
+[node name="Personaje" parent="." unique_id=1743000221 groups=["jugador"] instance=ExtResource("2_6gqm6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2)
+accion_prueba = "ui_accept"
+
+[node name="Elixir" type="Node" parent="Personaje" unique_id=840429101]
+script = ExtResource("3_pj58s")
+
+[node name="Interactuar" type="Node" parent="Personaje" unique_id=205862142]
+script = ExtResource("3_troo8")
+
+[node name="Salud" type="Node" parent="Personaje" unique_id=509635285]
+script = ExtResource("4_pj58s")
+
+[node name="LuzCazador" type="OmniLight3D" parent="." unique_id=1834947835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_color = Color(0.8509804, 0.015686275, 0.16078432, 1)
+shadow_enabled = true
+omni_attenuation = 2.0
+script = ExtResource("1_s3ock")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1364193257]
+mesh = SubResource("PlaneMesh_6odci")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2087712637]
+transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 0, 3, 5)
+
+[node name="Disparador" type="Area3D" parent="." unique_id=1549683535]
+collision_layer = 8
+script = ExtResource("2_mbsk8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=380947731]
+shape = SubResource("BoxShape3D_6odci")
+
+[node name="LuzEvento" type="OmniLight3D" parent="." unique_id=510376687]
+light_color = Color(0.8509804, 0.015686275, 0.16078432, 1)
+light_energy = 0.0
+omni_range = 4.0
+omni_attenuation = 2.0
+
+[node name="SistemaEventos" type="Node" parent="." unique_id=851854208 node_paths=PackedStringArray("luz_evento", "luz_variable")]
+script = ExtResource("3_nnw43")
+luz_evento = NodePath("../LuzEvento")
+luz_variable = NodePath("../LuzCercania")
+
+[node name="LuzCercania" type="OmniLight3D" parent="." unique_id=1194845711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
+omni_attenuation = 2.0
+
+[node name="Reliquia" type="MeshInstance3D" parent="." unique_id=2097182427 node_paths=PackedStringArray("objetivo") groups=["interactivos"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 0)
+material_override = SubResource("ShaderMaterial_7io2f")
+mesh = SubResource("BoxMesh_6odci")
+script = ExtResource("5_7io2f")
+objetivo = NodePath(".")
+
+[node name="ReliquiaDorada" type="MeshInstance3D" parent="." unique_id=1013135062 node_paths=PackedStringArray("objetivo") groups=["interactivos"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 0)
+material_override = SubResource("ShaderMaterial_kenls")
+script = ExtResource("5_7io2f")
+objetivo = NodePath(".")
+tecla = 71
+dura_flash = 0.8
+puntos = 250
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1480151533]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1497629407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+visible = false
+shape = SubResource("BoxShape3D_kenls")
+
+[node name="Cazador2" parent="." unique_id=1302923105 instance=ExtResource("9_6gqm6")]
+transform = Transform3D(1, 0, 0, 0, 0.9999756, 0.00698126, 0, -0.00698126, 0.9999756, -4, 0.5, 2)

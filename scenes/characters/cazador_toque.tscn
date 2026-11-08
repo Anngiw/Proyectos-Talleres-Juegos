@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://cazador_toque.gd" id="1_toque"]
+[ext_resource type="PackedScene" path="res://assets/characters/hunters/glTF/Orc.gltf" id="2_orc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_toque"]
+radius = 0.35
+height = 1.75
+
+[node name="Cazador2" type="CharacterBody3D"]
+script = ExtResource("1_toque")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_toque")
+
+[node name="Modelo" parent="." instance=ExtResource("2_orc")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
