@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b18iphu8vij8r"]
+
+[ext_resource type="PackedScene" uid="uid://dnlk5b08flnaa" path="res://assets/enviroment/env/glTF/TrashContainer_Open.gltf" id="1_uqttv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uxa2c"]
+size = Vector3(2.5255737, 2.0079346, 1.6069336)
+
+[node name="Node3D" type="StaticBody3D" unique_id=106064850]
+
+[node name="TrashContainer_Open2" parent="." unique_id=735626283 instance=ExtResource("1_uqttv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98627174, 0, -0.39336848)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1434238353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9963074, 0.965271, -0.28557277)
+shape = SubResource("BoxShape3D_uxa2c")

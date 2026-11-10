@@ -8,7 +8,8 @@ const RUIDO = [0.0, 2.0, 6.0, 0.0]
 @export var speed_correr: float = 6.0
 @export var tiempo_arranque: float = 0.18 
 @export var gravedad: float = 14.0
-@export var altura_salto: float = 1.8
+@export var altura_salto: float = 2.5
+
 @onready var anim = $Modelo/Rogue/AnimationPlayer
 
 @onready var audio_pasos: AudioStreamPlayer3D = $paso if has_node("paso") else null
