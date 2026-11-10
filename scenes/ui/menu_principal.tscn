@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://eqo0lwyi0vss"]
+
+[ext_resource type="Script" uid="uid://cum76jvlbukph" path="res://scenes/ui/menu_principal.gd" id="1_menu"]
+[ext_resource type="AudioStream" uid="uid://054ilu8orhnq" path="res://assets/sounds/musica.wav" id="2_musica"]
+
+[node name="MenuPrincipal" type="Control" unique_id=1912257221]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=299950504]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431, 0.0745, 0.1686, 1)
+
+[node name="Centro" type="CenterContainer" parent="." unique_id=1506520756]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caja" type="VBoxContainer" parent="Centro" unique_id=1134344907]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Titulo" type="Label" parent="Centro/Caja" unique_id=700776624]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.9608, 0.8314, 1)
+theme_override_font_sizes/font_size = 56
+text = "OUTRUN THE HUNT"
+horizontal_alignment = 1
+
+[node name="Subtitulo" type="Label" parent="Centro/Caja" unique_id=499952676]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.7176, 0.0118, 1)
+theme_override_font_sizes/font_size = 22
+text = "Elige un nivel"
+horizontal_alignment = 1
+
+[node name="BotonNivel1" type="Button" parent="Centro/Caja" unique_id=1497741410]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+text = "Nivel 1"
+
+[node name="BotonNivel2" type="Button" parent="Centro/Caja" unique_id=1190159339]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+disabled = true
+text = "Nivel 2 (próximamente)"
+
+[node name="BotonNivel3" type="Button" parent="Centro/Caja" unique_id=132948539]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+disabled = true
+text = "Nivel 3 (próximamente)"
+
+[node name="BotonSalir" type="Button" parent="Centro/Caja" unique_id=1039946540]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+text = "Salir"
+
+[node name="MusicaMenu" type="AudioStreamPlayer" parent="." unique_id=1444880243]
+stream = ExtResource("2_musica")
+volume_db = -8.0
+autoplay = true
