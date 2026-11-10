@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cgkh7d55k84dr" path="res://scenes/world/agua_contenedor.tscn" id="6_t5ptc"]
 [ext_resource type="PackedScene" uid="uid://d3ivtatvqrggs" path="res://assets/enviroment/env/glTF/Debris_Papers_1.gltf" id="7_bq33v"]
 [ext_resource type="PackedScene" uid="uid://dpp646rnweocp" path="res://scenes/world/arbol_1.tscn" id="8_j2gmx"]
+[ext_resource type="AudioStream" uid="uid://054ilu8orhnq" path="res://assets/sounds/musica.wav" id="4_6m72w"]
 
 [sub_resource type="Environment" id="Environment_xepy2"]
 background_mode = 1
@@ -49,6 +50,7 @@ environment = SubResource("Environment_xepy2")
 transform = Transform3D(1.93, 0, 0, 0, 1, 0, 0, 0, 1.93, -0.06744194, 0, 0.088799)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1123411505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, -0.01)
 shape = SubResource("BoxShape3D_xepy2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=743113685]
@@ -303,3 +305,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.836845, 0, -41.68826)
 
 [node name="arbol 24" parent="." unique_id=1637256293 instance=ExtResource("8_j2gmx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.787262, 0, -45.261337)
+[node name="MusicaAmbiente" type="AudioStreamPlayer" parent="." unique_id=1979453867]
+stream = ExtResource("4_6m72w")
+volume_db = -8.0
+autoplay = true
