@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://balluwr6xyqt5"]
+
+[ext_resource type="PackedScene" uid="uid://cn6nne8bhaabb" path="res://assets/enviroment/env/glTF/Barrier_Large.gltf" id="1_tfnwd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uxa2c"]
+size = Vector3(116.335945, 3.3253174, 0)
+
+[node name="barrera" type="StaticBody3D" unique_id=1973711625]
+
+[node name="Barrier_Large2" parent="." unique_id=1760762165 instance=ExtResource("1_tfnwd")]
+
+[node name="Barrier_Large3" parent="." unique_id=249116393 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7746317, 0, 0)
+
+[node name="Barrier_Large4" parent="." unique_id=70917856 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2932806, 0, 0)
+
+[node name="Barrier_Large5" parent="." unique_id=318962860 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5186489, 0, 0)
+
+[node name="Barrier_Large6" parent="." unique_id=811145160 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.516283, 0, 0)
+
+[node name="Barrier_Large7" parent="." unique_id=265678990 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.290915, 0, 0)
+
+[node name="Barrier_Large8" parent="." unique_id=257133258 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2230024, 0, 0)
+
+[node name="Barrier_Large9" parent="." unique_id=1620574772 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.997634, 0, 0)
+
+[node name="Barrier_Large10" parent="." unique_id=2042608597 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.985723, 0, 0)
+
+[node name="Barrier_Large11" parent="." unique_id=1200774436 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.760353, 0, 0)
+
+[node name="Barrier_Large12" parent="." unique_id=1550525680 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.692444, 0, 0)
+
+[node name="Barrier_Large13" parent="." unique_id=1188881545 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.467075, 0, 0)
+
+[node name="Barrier_Large14" parent="." unique_id=1632606655 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.502007, 0, 0)
+
+[node name="Barrier_Large15" parent="." unique_id=1470531845 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.276638, 0, 0)
+
+[node name="Barrier_Large16" parent="." unique_id=869116102 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.208725, 0, 0)
+
+[node name="Barrier_Large17" parent="." unique_id=1243022097 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.983356, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1576358483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.780921, 1.5645142, 0.13372755)
+shape = SubResource("BoxShape3D_uxa2c")
+
+[node name="Barrier_Large18" parent="." unique_id=32527576 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.868748, 0, 0)
+
+[node name="Barrier_Large19" parent="." unique_id=1634175747 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.094116, 0, 0)
+
+[node name="Barrier_Large20" parent="." unique_id=960291728 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.162025, 0, 0)
+
+[node name="Barrier_Large21" parent="." unique_id=1061922581 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.387398, 0, 0)
+
+[node name="Barrier_Large22" parent="." unique_id=2130169169 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.352463, 0, 0)
+
+[node name="Barrier_Large23" parent="." unique_id=2034565141 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.577835, 0, 0)
+
+[node name="Barrier_Large24" parent="." unique_id=1560249591 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.645744, 0, 0)
+
+[node name="Barrier_Large25" parent="." unique_id=1983456300 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.871113, 0, 0)
+
+[node name="Barrier_Large26" parent="." unique_id=833254477 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.883024, 0, 0)
+
+[node name="Barrier_Large27" parent="." unique_id=936911784 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.108395, 0, 0)
+
+[node name="Barrier_Large28" parent="." unique_id=1743337867 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.176304, 0, 0)
+
+[node name="Barrier_Large29" parent="." unique_id=129632486 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.401672, 0, 0)
+
+[node name="Barrier_Large30" parent="." unique_id=2074412817 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.366741, 0, 0)
+
+[node name="Barrier_Large31" parent="." unique_id=1328806454 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.59211, 0, 0)
+
+[node name="Barrier_Large32" parent="." unique_id=949435865 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.660023, 0, 0)
+
+[node name="Barrier_Large33" parent="." unique_id=429750018 instance=ExtResource("1_tfnwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.885391, 0, 0)
