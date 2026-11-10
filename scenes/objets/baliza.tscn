@@ -1,0 +1,27 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/objets/baliza.gd" id="1_bal"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bal"]
+height = 2.0
+radius = 1.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bal"]
+top_radius = 0.6
+bottom_radius = 0.9
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bal"]
+albedo_color = Color(0.11, 0.145, 0.255, 1)
+
+[node name="Baliza" type="Area3D"]
+script = ExtResource("1_bal")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_bal")
+
+[node name="Modelo" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("CylinderMesh_bal")
+surface_material_override/0 = SubResource("StandardMaterial3D_bal")
