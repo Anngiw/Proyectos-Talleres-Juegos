@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cgkh7d55k84dr"]
+
+[ext_resource type="PackedScene" uid="uid://dwrg7dteew4os" path="res://assets/enviroment/env/glTF/Structure_3.gltf" id="1_xlwj1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uxa2c"]
+size = Vector3(0.9199219, 3.1375122, 3.444336)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hchaj"]
+size = Vector3(2.151245, 3.6433716, 2.1658936)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r6318"]
+size = Vector3(1, 1.434021, 2.7624512)
+
+[node name="agua contenedor" type="StaticBody3D" unique_id=1732984120]
+
+[node name="Structure_32" parent="." unique_id=1035540340 instance=ExtResource("1_xlwj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7835293, 0, -1.1522117)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1928264599]
+transform = Transform3D(7.2, 0, 0, 0, 1, 0, 0, 0, 1, -2.7835293, 1.6617198, -1.236196)
+shape = SubResource("BoxShape3D_uxa2c")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1724953312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72320557, 5.072415, -1.7298515)
+shape = SubResource("BoxShape3D_hchaj")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=341519836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.732359, 0.79623437, -1.1297607)
+shape = SubResource("BoxShape3D_r6318")
