@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cew1xkskbk0p1" path="res://scenes/characters/personaje.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://65c1udijd0dn" path="res://assets/characters/seekers/glTF-20261028T010738Z-1-001/glTF/Rogue.gltf" id="2_rogue"]
+[ext_resource type="AudioStream" uid="uid://qgq2g7wg4huw" path="res://assets/sounds/paso.wav" id="3_u5665"]
+[ext_resource type="AudioStream" uid="uid://cc1s4p8e8l1am" path="res://assets/sounds/salto.wav" id="4_u50a1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rogue"]
 radius = 0.4
 height = 1.8
 
 [node name="Personaje" type="CharacterBody3D" unique_id=1743000221 groups=["jugador"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 script = ExtResource("1_script")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=758470372]
@@ -19,3 +20,11 @@ shape = SubResource("CapsuleShape3D_rogue")
 
 [node name="Rogue" parent="Modelo" unique_id=1105018699 instance=ExtResource("2_rogue")]
 transform = Transform3D(-0.6, 0, -5.2453668e-08, 0, 0.6, 0, 5.2453668e-08, 0, -0.6, 0, 0, 0)
+
+[node name="paso" type="AudioStreamPlayer3D" parent="." unique_id=997588017]
+stream = ExtResource("3_u5665")
+
+[node name="salto" type="AudioStreamPlayer3D" parent="." unique_id=1392310505]
+stream = ExtResource("4_u50a1")
+volume_db = 6.0
+max_db = 6.0

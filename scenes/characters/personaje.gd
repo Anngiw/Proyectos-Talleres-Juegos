@@ -11,12 +11,17 @@ const RUIDO = [0.0, 2.0, 6.0, 0.0]
 @export var altura_salto: float = 1.8
 @onready var anim = $Modelo/Rogue/AnimationPlayer
 
+@onready var audio_pasos: AudioStreamPlayer3D = $paso if has_node("paso") else null
+@onready var audio_salto: AudioStreamPlayer3D = $salto if has_node("salto") else null
+var _tiempo_paso: float = 0.0
+@export var intervalo_caminar: float = 0.5   
+@export var intervalo_correr: float = 0.3    
 
 # Enchufes: otros scripts (las acciones del juego) cambian estas variables.
 var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto
 var empuje = Vector3.ZERO   # velocidad extra en m/s (dash, retroceso)
 var accion = ""             # animación de la acción; "" = ninguna
-var avance = Vector3.ZERO   # [NOTA ASIGNADA POR CAMBIO DE DISEÑO 2.5D A 3.0D] La parte de la velocidad que dan las teclas[cite: 11]
+var avance = Vector3.ZERO   # [NOTA ASIGNADA POR CAMBIO DE DISEÑO 2.5D A 3.0D] La parte de la velocidad que dan las teclas
 var estado = Estado.QUIETO
 var ruido = 0.0
 
@@ -27,6 +32,8 @@ func _physics_process(delta):
 		velocity.y -= gravedad * delta
 	elif Input.is_action_just_pressed("saltar"):
 		velocity.y = sqrt(2 * gravedad * altura_salto)
+		if audio_salto and audio_salto.stream:
+			audio_salto.play()
 
 	# --- Movimiento en X y Z con Cámara, Correr, Arranque y Frenado --------
 	var entrada = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -47,7 +54,19 @@ func _physics_process(delta):
 
 	# --- Rotación suave hacia donde camina según la cámara -------------------
 	if direction.length() > 0:
-		basis = Basis.looking_at(direction)
+		var angulo_objetivo = atan2(-direction.x, -direction.z)
+		rotation.y = lerp_angle(rotation.y, angulo_objetivo, 14.0 * delta)
+
+	# --- Control rítmico de pasos al caminar o correr ------------------------
+	if is_on_floor() and direction.length() > 0:
+		_tiempo_paso += delta
+		var intervalo_actual = intervalo_correr if corre else intervalo_caminar
+		if _tiempo_paso >= intervalo_actual:
+			_tiempo_paso = 0.0
+			if audio_pasos and audio_pasos.stream:
+				audio_pasos.play()
+	else:
+		_tiempo_paso = intervalo_caminar
 
 	# --- Esqueleto viejo borrado Control de Animaciones ----------------------------------------------
 	#_________________
