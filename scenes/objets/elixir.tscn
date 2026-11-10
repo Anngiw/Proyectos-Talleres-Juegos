@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/objets/elixir.gd" id="1_eli"]
+[ext_resource type="AudioStream" path="res://assets/sounds/elixir.wav" id="2_snd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eli"]
+radius = 0.7
+
+[sub_resource type="SphereMesh" id="SphereMesh_eli"]
+radius = 0.28
+height = 0.56
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eli"]
+albedo_color = Color(1, 0.7176, 0.0118, 1)
+emission_enabled = true
+emission = Color(1, 0.7176, 0.0118, 1)
+emission_energy_multiplier = 2.0
+
+[node name="Elixir" type="Area3D"]
+script = ExtResource("1_eli")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_eli")
+
+[node name="Modelo" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_eli")
+surface_material_override/0 = SubResource("StandardMaterial3D_eli")
+
+[node name="Sonido" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_snd")

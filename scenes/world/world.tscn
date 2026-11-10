@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://dpp646rnweocp" path="res://scenes/world/arbol_1.tscn" id="8_j2gmx"]
 [ext_resource type="AudioStream" uid="uid://054ilu8orhnq" path="res://assets/sounds/musica.wav" id="9_musica"]
 [ext_resource type="PackedScene" uid="uid://b18iphu8vij8r" path="res://scenes/world/trash.tscn" id="11_dlabj"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="20_hud"]
+[ext_resource type="PackedScene" path="res://scenes/objets/reliquia.tscn" id="21_reliquia"]
+[ext_resource type="PackedScene" path="res://scenes/objets/elixir.tscn" id="22_elixir"]
 
 [sub_resource type="Environment" id="Environment_xepy2"]
 background_mode = 1
@@ -503,6 +506,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.787262, 0, -45.261337)
 stream = ExtResource("9_musica")
 volume_db = -8.0
 autoplay = true
+
+[node name="Hud" parent="." instance=ExtResource("20_hud")]
+
+[node name="Reliquia1" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 6.7)
+
+[node name="Reliquia2" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 10)
+
+[node name="Reliquia3" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, 2)
+
+[node name="Reliquia4" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 4)
+
+[node name="Elixir1" parent="." instance=ExtResource("22_elixir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 10)
 
 [node name="Node3D6" parent="." unique_id=106064850 instance=ExtResource("11_dlabj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
