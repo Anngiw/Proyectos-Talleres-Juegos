@@ -2,9 +2,9 @@ extends CharacterBody3D
 
 enum Estado { PATRULLAR, ESPERAR, PERSEGUIR, ATACAR, BUSCAR}
 
-@export var rapidez = 2.0
+@export var rapidez = 5
 @export var espera = 1.0
-@export var rango_vision = 7.0
+@export var rango_vision = 10.0
 @export var ruta: Array[Vector3] = [Vector3.ZERO, Vector3(0, 0, -6)]
 
 #Nivel 3

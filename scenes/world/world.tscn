@@ -131,7 +131,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5481188, 2.1627402)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 2)
 
 [node name="Cazador" parent="." unique_id=1818351822 instance=ExtResource("3_1fp7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1.7968826)
+rango_vision = 6.0
+
+[node name="Cazador5" parent="." unique_id=1224055475 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.030354, 0, -25.575684)
+rango_vision = 6.0
+
+[node name="Cazador2" parent="." unique_id=703583122 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.488316, 0, 20.693869)
+rango_vision = 6.0
+
+[node name="Cazador3" parent="." unique_id=1698737070 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.827976, 0, -26.59634)
+rango_vision = 6.0
+
+[node name="Cazador4" parent="." unique_id=2000193613 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.335505, 0, 23.284565)
 rango_vision = 6.0
 
 [node name="barrera" parent="." unique_id=14050345 instance=ExtResource("4_6m72w")]
