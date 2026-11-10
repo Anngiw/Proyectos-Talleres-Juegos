@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hud"]
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="Reliquias" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0.9608, 0.8314, 1)
+theme_override_font_sizes/font_size = 30
+text = "Reliquias: 0/0"
+
+[node name="Corazones" type="HBoxContainer" parent="."]
+offset_left = 24.0
+offset_top = 68.0
+offset_right = 200.0
+offset_bottom = 108.0
+theme_override_constants/separation = 8
+
+[node name="Elixir" type="Label" parent="."]
+visible = false
+offset_left = 24.0
+offset_top = 116.0
+offset_right = 320.0
+offset_bottom = 154.0
+theme_override_colors/font_color = Color(1, 0.7176, 0.0118, 1)
+theme_override_font_sizes/font_size = 24
+text = "Elixir activo: salto alto"
