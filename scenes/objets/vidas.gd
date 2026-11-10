@@ -5,7 +5,7 @@ signal sin_vidas
 
 @export var vidas = 3
 @export var retraso = 1.2
-@export var invulnerable = 2.0
+@export var invulnerable = 3.0
 
 var punto = Vector3.ZERO
 var reloj = 0.0
@@ -22,8 +22,12 @@ func _ready():
 	for nodo in get_parent().get_children():
 		if "rango_vision" in nodo:
 			cazadores.append(nodo)
-	for b in get_tree().get_nodes_in_group("balizas"):
+	var balizas = get_tree().get_nodes_in_group("balizas")
+	for b in balizas:
 		b.activada.connect(_on_baliza)
+	if balizas.size() > 0:
+		punto = balizas[0].global_position + Vector3.UP * 0.2
+		balizas[0].encender()
 
 func _on_baliza(posicion):
 	punto = posicion + Vector3.UP * 0.2
@@ -52,5 +56,10 @@ func perder_vida():
 	jugador.velocity = Vector3.ZERO
 	jugador.avance = Vector3.ZERO
 	jugador.animar()
+	for c in cazadores:
+		if is_instance_valid(c) and c.puntos.size() > 0 and c.global_position.distance_to(punto) < 15.0:
+			c.global_position = c.puntos[0]
+			c.estado = c.Estado.PATRULLAR
+			c.busca = 0.0
 	reloj = invulnerable
 	muriendo = false

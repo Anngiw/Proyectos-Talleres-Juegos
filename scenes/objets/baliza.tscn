@@ -14,6 +14,16 @@ height = 0.3
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bal"]
 albedo_color = Color(0.11, 0.145, 0.255, 1)
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_haz"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 8.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_haz"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0.9608, 0.8314, 0.3)
+
 [node name="Baliza" type="Area3D"]
 script = ExtResource("1_bal")
 
@@ -25,3 +35,14 @@ shape = SubResource("CylinderShape3D_bal")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 mesh = SubResource("CylinderMesh_bal")
 surface_material_override/0 = SubResource("StandardMaterial3D_bal")
+
+[node name="Haz" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+mesh = SubResource("CylinderMesh_haz")
+surface_material_override/0 = SubResource("StandardMaterial3D_haz")
+
+[node name="Luz" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_color = Color(0, 0.9608, 0.8314, 1)
+light_energy = 0.6
+omni_range = 8.0
