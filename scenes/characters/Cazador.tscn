@@ -20,3 +20,13 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 [node name="Vision" type="RayCast3D" parent="." unique_id=1780465941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 target_position = Vector3(0, 0, -7)
+
+[node name="laser" type="OmniLight3D" parent="." unique_id=1817895288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.0364943)
+light_color = Color(0.9019608, 0.13333334, 0.13333334, 1)
+light_energy = 3.0
+
+[node name="LuzCorporal" type="OmniLight3D" parent="." unique_id=2085457931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
+light_energy = 2.0
+omni_range = 3.5

@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="20_hud"]
 [ext_resource type="PackedScene" path="res://scenes/objets/reliquia.tscn" id="21_reliquia"]
 [ext_resource type="PackedScene" path="res://scenes/objets/elixir.tscn" id="22_elixir"]
-[ext_resource type="Script" path="res://scenes/objets/vidas.gd" id="23_vidas"]
+[ext_resource type="Script" uid="uid://bshwikhbll8ug" path="res://scenes/objets/vidas.gd" id="23_vidas"]
 [ext_resource type="PackedScene" path="res://scenes/objets/baliza.tscn" id="24_baliza"]
 
 [sub_resource type="Environment" id="Environment_xepy2"]
@@ -526,13 +526,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 4)
 [node name="Elixir1" parent="." unique_id=1992966732 instance=ExtResource("22_elixir")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 10)
 
-[node name="Vidas" type="Node" parent="."]
+[node name="Vidas" type="Node" parent="." unique_id=1227850332]
 script = ExtResource("23_vidas")
 
-[node name="Baliza1" parent="." instance=ExtResource("24_baliza")]
+[node name="Baliza1" parent="." unique_id=1406712404 instance=ExtResource("24_baliza")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 12)
 
-[node name="Baliza2" parent="." instance=ExtResource("24_baliza")]
+[node name="Baliza2" parent="." unique_id=1570231343 instance=ExtResource("24_baliza")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 12)
 
 [node name="Node3D6" parent="." unique_id=106064850 instance=ExtResource("11_dlabj")]

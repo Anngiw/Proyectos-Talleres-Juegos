@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Find and hunt"
-run/main_scene="res://scenes/world/world.tscn"
+run/main_scene="uid://eqo0lwyi0vss"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
