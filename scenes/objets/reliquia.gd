@@ -2,6 +2,8 @@ extends Area3D
 
 signal recogida
 
+@export var dorada = false
+
 var ya_recogida = false
 
 func _enter_tree():
@@ -9,6 +11,13 @@ func _enter_tree():
 
 func _ready():
 	body_entered.connect(_on_body_entered)
+	if dorada:
+		var oro = StandardMaterial3D.new()
+		oro.albedo_color = Color("#FFB703")
+		oro.emission_enabled = true
+		oro.emission = Color("#FFB703")
+		oro.emission_energy_multiplier = 2.0
+		$Modelo.material_override = oro
 
 func _process(delta):
 	$Modelo.rotate_y(delta * 2.0)

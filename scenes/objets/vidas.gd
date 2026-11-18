@@ -50,7 +50,6 @@ func perder_vida():
 	if vidas == 0:
 		sin_vidas.emit()
 		print("sin vidas")
-		get_tree().reload_current_scene()
 		return
 	jugador.global_position = punto
 	jugador.velocity = Vector3.ZERO

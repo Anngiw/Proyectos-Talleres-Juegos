@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" path="res://scenes/objets/elixir.tscn" id="22_elixir"]
 [ext_resource type="Script" uid="uid://bshwikhbll8ug" path="res://scenes/objets/vidas.gd" id="23_vidas"]
 [ext_resource type="PackedScene" path="res://scenes/objets/baliza.tscn" id="24_baliza"]
+[ext_resource type="Script" path="res://scenes/objets/juego.gd" id="25_juego"]
+[ext_resource type="PackedScene" path="res://scenes/objets/portal.tscn" id="26_portal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pantallas.tscn" id="27_pantallas"]
 
 [sub_resource type="Environment" id="Environment_xepy2"]
 background_mode = 1
@@ -136,7 +139,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5481188, 2.1627402)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 2)
 
 [node name="Cazador" parent="." unique_id=1818351822 instance=ExtResource("3_1fp7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1.7968826)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -4)
 rango_vision = 6.0
 
 [node name="Cazador5" parent="." unique_id=1224055475 instance=ExtResource("3_1fp7r")]
@@ -512,16 +515,16 @@ autoplay = true
 [node name="Hud" parent="." unique_id=2095159249 instance=ExtResource("20_hud")]
 
 [node name="Reliquia1" parent="." unique_id=1836048365 instance=ExtResource("21_reliquia")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 6.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 10)
 
 [node name="Reliquia2" parent="." unique_id=176460600 instance=ExtResource("21_reliquia")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 12)
 
 [node name="Reliquia3" parent="." unique_id=1808089608 instance=ExtResource("21_reliquia")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1, 0)
 
 [node name="Reliquia4" parent="." unique_id=82467445 instance=ExtResource("21_reliquia")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 2)
 
 [node name="Elixir1" parent="." unique_id=1992966732 instance=ExtResource("22_elixir")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 10)
@@ -564,3 +567,46 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 23.6
 
 [node name="Node3D15" parent="." unique_id=1984837035 instance=ExtResource("11_dlabj")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 44.60401, 0, 10.324108)
+
+[node name="Reliquia5" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -8)
+
+[node name="Reliquia6" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 1, 10)
+
+[node name="Reliquia7" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -22)
+
+[node name="Reliquia8" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 1, -14)
+
+[node name="Reliquia9" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 1, 28)
+
+[node name="Reliquia10" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 1, 24)
+
+[node name="Reliquia11" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 1, -34)
+dorada = true
+
+[node name="Reliquia12" parent="." instance=ExtResource("21_reliquia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 1, -34)
+dorada = true
+
+[node name="Baliza3" parent="." instance=ExtResource("24_baliza")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -12)
+
+[node name="Baliza4" parent="." instance=ExtResource("24_baliza")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -14)
+
+[node name="Baliza5" parent="." instance=ExtResource("24_baliza")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -36)
+
+[node name="Portal" parent="." instance=ExtResource("26_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+
+[node name="Juego" type="Node" parent="."]
+script = ExtResource("25_juego")
+
+[node name="Pantallas" parent="." instance=ExtResource("27_pantallas")]
