@@ -4,8 +4,8 @@ enum Estado { QUIETO, CAMINAR, CORRER, AIRE }
 const RUIDO = [0.0, 2.0, 6.0, 0.0]
 # ---
 @export var camara: Camera3D
-@export var speed_caminar: float = 3.5
-@export var speed_correr: float = 6.0
+@export var speed_caminar: float = 4.5
+@export var speed_correr: float = 7
 @export var tiempo_arranque: float = 0.18 
 @export var gravedad: float = 14.0
 @export var altura_salto: float = 2.5
@@ -16,7 +16,7 @@ const RUIDO = [0.0, 2.0, 6.0, 0.0]
 @onready var audio_salto: AudioStreamPlayer3D = $salto if has_node("salto") else null
 var _tiempo_paso: float = 0.0
 @export var intervalo_caminar: float = 0.5   
-@export var intervalo_correr: float = 0.3    
+@export var intervalo_correr: float = 0.28    
 
 # Enchufes: otros scripts (las acciones del juego) cambian estas variables.
 var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto

@@ -12,12 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://dpp646rnweocp" path="res://scenes/world/arbol_1.tscn" id="8_j2gmx"]
 [ext_resource type="AudioStream" uid="uid://054ilu8orhnq" path="res://assets/sounds/musica.wav" id="9_musica"]
 [ext_resource type="PackedScene" uid="uid://b18iphu8vij8r" path="res://scenes/world/trash.tscn" id="11_dlabj"]
+[ext_resource type="Script" uid="uid://cab4gu0c27deu" path="res://scenes/world/musica_ambiente.gd" id="12_t634p"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="20_hud"]
 [ext_resource type="PackedScene" path="res://scenes/objets/reliquia.tscn" id="21_reliquia"]
 [ext_resource type="PackedScene" path="res://scenes/objets/elixir.tscn" id="22_elixir"]
 [ext_resource type="Script" uid="uid://bshwikhbll8ug" path="res://scenes/objets/vidas.gd" id="23_vidas"]
 [ext_resource type="PackedScene" path="res://scenes/objets/baliza.tscn" id="24_baliza"]
-[ext_resource type="Script" path="res://scenes/objets/juego.gd" id="25_juego"]
+[ext_resource type="Script" uid="uid://dqrgbk0xwcbfj" path="res://scenes/objets/juego.gd" id="25_juego"]
 [ext_resource type="PackedScene" path="res://scenes/objets/portal.tscn" id="26_portal"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pantallas.tscn" id="27_pantallas"]
 
@@ -88,7 +89,7 @@ transform = Transform3D(29.400003, 0, 0, 0, 1, 0, 0, 0, 3.0000005, 0, 0.11325931
 mesh = SubResource("PlaneMesh_uxa2c")
 
 [node name="Node3D" parent="Floor" unique_id=1735903804 instance=ExtResource("2_dlabj")]
-transform = Transform3D(0.4664101, 0, 0.225667, 0, 1, 0, -0.225667, 0, 0.4664101, -2.555731, 2.6516037, -11.108937)
+transform = Transform3D(0.46641007, 0, 0.225667, 0, 1, 0, -0.225667, 0, 0.46641007, -2.555731, 2.6516037, -11.108937)
 
 [node name="Node3D2" parent="Floor" unique_id=642168614 instance=ExtResource("2_dlabj")]
 transform = Transform3D(0.46641034, 0, 0.22566716, 0, 1, 0, -0.22566716, 0, 0.46641034, -3.5835018, 2.6516037, -10.621926)
@@ -511,6 +512,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.787262, 0, -45.261337)
 stream = ExtResource("9_musica")
 volume_db = -8.0
 autoplay = true
+script = ExtResource("12_t634p")
 
 [node name="Hud" parent="." unique_id=2095159249 instance=ExtResource("20_hud")]
 
@@ -568,45 +570,45 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 23.6
 [node name="Node3D15" parent="." unique_id=1984837035 instance=ExtResource("11_dlabj")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 44.60401, 0, 10.324108)
 
-[node name="Reliquia5" parent="." instance=ExtResource("21_reliquia")]
+[node name="Reliquia5" parent="." unique_id=705891374 instance=ExtResource("21_reliquia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -8)
 
-[node name="Reliquia6" parent="." instance=ExtResource("21_reliquia")]
+[node name="Reliquia6" parent="." unique_id=1402142188 instance=ExtResource("21_reliquia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 1, 10)
 
-[node name="Reliquia7" parent="." instance=ExtResource("21_reliquia")]
+[node name="Reliquia7" parent="." unique_id=1051875610 instance=ExtResource("21_reliquia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -22)
 
-[node name="Reliquia8" parent="." instance=ExtResource("21_reliquia")]
+[node name="Reliquia8" parent="." unique_id=1826545998 instance=ExtResource("21_reliquia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 1, -14)
 
-[node name="Reliquia9" parent="." instance=ExtResource("21_reliquia")]
+[node name="Reliquia9" parent="." unique_id=1328448906 instance=ExtResource("21_reliquia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 1, 28)
 
-[node name="Reliquia10" parent="." instance=ExtResource("21_reliquia")]
+[node name="Reliquia10" parent="." unique_id=390031396 instance=ExtResource("21_reliquia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 1, 24)
 
-[node name="Reliquia11" parent="." instance=ExtResource("21_reliquia")]
+[node name="Reliquia11" parent="." unique_id=1644224668 instance=ExtResource("21_reliquia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 1, -34)
 dorada = true
 
-[node name="Reliquia12" parent="." instance=ExtResource("21_reliquia")]
+[node name="Reliquia12" parent="." unique_id=194705189 instance=ExtResource("21_reliquia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 1, -34)
 dorada = true
 
-[node name="Baliza3" parent="." instance=ExtResource("24_baliza")]
+[node name="Baliza3" parent="." unique_id=1526050798 instance=ExtResource("24_baliza")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -12)
 
-[node name="Baliza4" parent="." instance=ExtResource("24_baliza")]
+[node name="Baliza4" parent="." unique_id=1265908685 instance=ExtResource("24_baliza")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -14)
 
-[node name="Baliza5" parent="." instance=ExtResource("24_baliza")]
+[node name="Baliza5" parent="." unique_id=1345777069 instance=ExtResource("24_baliza")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -36)
 
-[node name="Portal" parent="." instance=ExtResource("26_portal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+[node name="Portal" parent="." unique_id=157813329 instance=ExtResource("26_portal")]
+transform = Transform3D(0.028820366, 0.043951984, 0.99861777, 0.026609788, 0.99864507, -0.04472114, -0.9992303, 0.02786188, 0.027611755, -21.181196, 11.07098, -7.49749)
 
-[node name="Juego" type="Node" parent="."]
+[node name="Juego" type="Node" parent="." unique_id=279703260]
 script = ExtResource("25_juego")
 
-[node name="Pantallas" parent="." instance=ExtResource("27_pantallas")]
+[node name="Pantallas" parent="." unique_id=417000111 instance=ExtResource("27_pantallas")]
