@@ -28,5 +28,5 @@ light_energy = 3.0
 
 [node name="LuzCorporal" type="OmniLight3D" parent="." unique_id=2085457931]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
-light_energy = 2.0
+light_energy = 3.0
 omni_range = 3.5

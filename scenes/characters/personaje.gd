@@ -4,7 +4,7 @@ enum Estado { QUIETO, CAMINAR, CORRER, AIRE }
 const RUIDO = [0.0, 2.0, 6.0, 0.0]
 # ---
 @export var camara: Camera3D
-@export var speed_caminar: float = 4.5
+@export var speed_caminar: float = 5
 @export var speed_correr: float = 7
 @export var tiempo_arranque: float = 0.18 
 @export var gravedad: float = 14.0

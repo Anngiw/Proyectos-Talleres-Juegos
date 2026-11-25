@@ -22,29 +22,54 @@
 [ext_resource type="PackedScene" path="res://scenes/objets/portal.tscn" id="26_portal"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pantallas.tscn" id="27_pantallas"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ues17"]
+frequency = 0.015
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t634p"]
+noise = SubResource("FastNoiseLite_ues17")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ues17"]
+sky_top_color = Color(0.019607844, 0.039215688, 0.10980392, 1)
+sky_horizon_color = Color(0.10980392, 0.18039216, 0.32156864, 1)
+sky_curve = 0.16
+sky_cover = SubResource("NoiseTexture2D_t634p")
+sky_cover_modulate = Color(0.0019886182, 5.627688e-05, 0.28888667, 1)
+ground_bottom_color = Color(0.019607844, 0.03137255, 0.05882353, 1)
+ground_horizon_color = Color(0.078431375, 0.12156863, 0.2, 1)
+sun_angle_max = 20.0
+sun_curve = 0.08
+
+[sub_resource type="Sky" id="Sky_6hctx"]
+sky_material = SubResource("ProceduralSkyMaterial_ues17")
+
 [sub_resource type="Environment" id="Environment_xepy2"]
-background_mode = 1
+background_mode = 2
 background_color = Color(0.062142476, 0.09954744, 0.2117146, 1)
+sky = SubResource("Sky_6hctx")
 ambient_light_source = 3
-ambient_light_color = Color(0.043137256, 0.07450981, 0.16862746, 1)
-ambient_light_sky_contribution = 0.0
+ambient_light_color = Color(0.12156863, 0.19607843, 0.2, 1)
+ambient_light_sky_contribution = 0.7
+ambient_light_energy = 0.55
+reflected_light_source = 2
 tonemap_mode = 2
+fog_light_color = Color(0.09019608, 0.14901961, 0.27058825, 1)
+fog_density = 0.003
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xepy2"]
 size = Vector3(60, 1, 60)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4rhad"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ues17"]
 albedo_color = Color(0.9372549, 0.8352941, 0.19607843, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_dphjl"]
-material = SubResource("StandardMaterial3D_4rhad")
+material = SubResource("StandardMaterial3D_ues17")
 size = Vector3(60, 1, 60)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hchaj"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xq18t"]
 albedo_color = Color(1, 0.6929891, 0.20574397, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_uxa2c"]
-material = SubResource("StandardMaterial3D_hchaj")
+material = SubResource("StandardMaterial3D_xq18t")
 
 [node name="World" type="Node3D" unique_id=1399488168]
 
@@ -66,6 +91,7 @@ transform = Transform3D(0.34417182, 0, -0.93890667, 0, 1, 0, 0.93890667, 0, 0.34
 [node name="Nodo de Luz" type="DirectionalLight3D" parent="." unique_id=1056099398]
 transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 26.95779, 0)
 light_color = Color(0.20102578, 0.28321213, 0.5234557, 1)
+light_energy = 2.0
 shadow_enabled = true
 shadow_bias = 3.0
 shadow_normal_bias = 6.0
@@ -178,9 +204,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.9356036)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.9356036)
 
 [node name="Nodo de Luz2" type="DirectionalLight3D" parent="." unique_id=1218596226]
-transform = Transform3D(-1, -6.181724e-08, 6.181723e-08, 0, 0.7071067, 0.7071068, -8.742278e-08, 0.7071068, -0.7071067, 8.849477, 26.95779, 11.922281)
+transform = Transform3D(-1, -6.181724e-08, 6.181723e-08, 0, 0.7071067, 0.7071068, -8.742278e-08, 0.7071068, -0.7071067, -1.9009047, 44.97167, 24.666431)
 light_color = Color(0.20102578, 0.28321213, 0.5234557, 1)
-shadow_enabled = true
 shadow_bias = 3.0
 shadow_normal_bias = 6.0
 
