@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://054ilu8orhnq" path="res://assets/sounds/musica.wav" id="9_musica"]
 [ext_resource type="PackedScene" uid="uid://b18iphu8vij8r" path="res://scenes/world/trash.tscn" id="11_dlabj"]
 [ext_resource type="Script" uid="uid://cab4gu0c27deu" path="res://scenes/world/musica_ambiente.gd" id="12_t634p"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="20_hud"]
+[ext_resource type="PackedScene" uid="uid://b32feocj71215" path="res://scenes/ui/hud.tscn" id="20_hud"]
 [ext_resource type="PackedScene" path="res://scenes/objets/reliquia.tscn" id="21_reliquia"]
 [ext_resource type="PackedScene" path="res://scenes/objets/elixir.tscn" id="22_elixir"]
 [ext_resource type="Script" uid="uid://bshwikhbll8ug" path="res://scenes/objets/vidas.gd" id="23_vidas"]
@@ -156,7 +156,7 @@ script = ExtResource("3_camara")
 objetivo = NodePath("../Personaje")
 
 [node name="Personaje" parent="." unique_id=1837990298 node_paths=PackedStringArray("camara") instance=ExtResource("2_personaje")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1755486, 0, 6.7125444)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1755486, -0.015722156, 6.7125444)
 camara = NodePath("../MainCamera")
 
 [node name="Plataforma3" type="StaticBody3D" parent="." unique_id=485200372]

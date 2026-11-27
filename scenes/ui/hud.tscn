@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b32feocj71215"]
 
-[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hud"]
-[ext_resource type="AudioStream" path="res://assets/sounds/alarma.wav" id="2_alarma"]
+[ext_resource type="Script" uid="uid://ccwubtknme1mm" path="res://scenes/ui/hud.gd" id="1_hud"]
+[ext_resource type="AudioStream" uid="uid://csea7uigo64r" path="res://assets/sounds/alarma.wav" id="2_alarma"]
 
-[node name="Hud" type="CanvasLayer"]
+[node name="Hud" type="CanvasLayer" unique_id=1703095554]
 script = ExtResource("1_hud")
 
-[node name="Alerta" type="ColorRect" parent="."]
+[node name="Alerta" type="ColorRect" parent="." unique_id=1525627953]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,7 +15,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.851, 0.016, 0.161, 0)
 
-[node name="Reliquias" type="Label" parent="."]
+[node name="Reliquias" type="Label" parent="." unique_id=592650066]
 offset_left = 24.0
 offset_top = 20.0
 offset_right = 320.0
@@ -24,14 +24,14 @@ theme_override_colors/font_color = Color(0, 0.9608, 0.8314, 1)
 theme_override_font_sizes/font_size = 30
 text = "Reliquias: 0/0"
 
-[node name="Corazones" type="HBoxContainer" parent="."]
+[node name="Corazones" type="HBoxContainer" parent="." unique_id=621286358]
 offset_left = 24.0
 offset_top = 68.0
 offset_right = 200.0
 offset_bottom = 108.0
 theme_override_constants/separation = 8
 
-[node name="Elixir" type="Label" parent="."]
+[node name="Elixir" type="Label" parent="." unique_id=693776457]
 visible = false
 offset_left = 24.0
 offset_top = 116.0
@@ -41,7 +41,7 @@ theme_override_colors/font_color = Color(1, 0.7176, 0.0118, 1)
 theme_override_font_sizes/font_size = 24
 text = "Elixir activo: salto alto"
 
-[node name="Tiempo" type="Label" parent="."]
+[node name="Tiempo" type="Label" parent="." unique_id=1373758174]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -55,7 +55,7 @@ theme_override_font_sizes/font_size = 44
 text = "03:00"
 horizontal_alignment = 1
 
-[node name="AlertaTexto" type="Label" parent="."]
+[node name="AlertaTexto" type="Label" parent="." unique_id=1815251534]
 visible = false
 anchors_preset = 5
 anchor_left = 0.5
@@ -70,7 +70,7 @@ theme_override_font_sizes/font_size = 34
 text = "¡ÚLTIMOS 30 SEGUNDOS!"
 horizontal_alignment = 1
 
-[node name="Mensaje" type="Label" parent="."]
+[node name="Mensaje" type="Label" parent="." unique_id=794146607]
 visible = false
 anchors_preset = 5
 anchor_left = 0.5
@@ -85,6 +85,6 @@ theme_override_font_sizes/font_size = 30
 text = "¡PORTAL ABIERTO! Corre a la meta"
 horizontal_alignment = 1
 
-[node name="Alarma" type="AudioStreamPlayer" parent="."]
+[node name="Alarma" type="AudioStreamPlayer" parent="." unique_id=224049621]
 stream = ExtResource("2_alarma")
 volume_db = -4.0
